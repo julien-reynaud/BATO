@@ -11,30 +11,62 @@ const session = require('express-session')({
         secure: false
     }
 });
-const {body, validationResult} = require('express-validator');
 
+const {body, validationResult} = require('express-validator');
+const sharedsession = require('express-socket.io-session');
+const bodyParser = require('body-parser'); // Pour traiter la requête ajax. Permet d'utiliser req.body dans le app.post('/login')
+
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+io.use(sharedsession(session, {
+    autoSave: true
+}));
 
 app.use(express.static(__dirname + '/Front/'))
+app.use(urlencodedParser);
+app.use(session);
 
 app.get('/', (req, res) => {
     let sessionData = req.session;
+    console.log(sessionData);
 
     if(!sessionData.username) // Si la session n'a pas d'username ca veut dire qu'on est pas co donc on envoie au login
     {
-        res.sendFile(__dirname + 'Front/html/login.html');
+        console.log('On envoie l\'user se co');
+        res.sendFile(__dirname + '/Front/html/login.html');
     }
     else // Sinon on est co donc on envoie au menu
     {
+        console.log('Infos ok, on passe à la suite');
         res.sendFile(__dirname + '/Front/html/index.html');
     }
 });
 
-app.get('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) => {
+app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) => {
+    console.log("On check les infos");
+
+    console.log(req.body);
+    const login = req.body.login;
+    const pwd = req.body.pwd;
+    
     // C'est ici qu'on verifie la validite des username / password
+    // Pour l'instant on considere qu'il est tjrs bon
+    req.session.username = login; // el famoso username dont on teste la presence juste au-dessus
+    // Le mot de passe est pas stocké dans les infos de la session, on vérifie seulement s'il est bon avec la bdd
+    req.session.save(); // ctrl + s
+    res.redirect('/'); // Et on renvoie la-haut pour passer a la suite
 });
 
 io.on('connection', (socket) => {
     console.log('A user connected');
+    console.log(user.handshake);
+
+    socket.on('login', () => {
+        let srvSockets = io.sockets.sockets;
+        srvSockets.forEach(user => {
+            console.log(user.handshake.session.username);
+        })
+    });
 })
 
 http.listen(4200, () => {

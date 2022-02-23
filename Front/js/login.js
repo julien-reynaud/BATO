@@ -4,5 +4,7 @@ let pwd = document.getElementById("pwd");
 
 form.addEventListener("submit", event => {
     event.preventDefault();
-    // Ajouter la fonction de login
+    // Quand on submit on envoie les id et mdp a logFunc()
+    console.log("submit");
+    logFunc.sendLogin(pseudo.value, pwd.value);
 });
