@@ -37,10 +37,8 @@ class BATOGrid{
         }
         //console.log(this.grid);
         // Un peu de style
-        table.setAttribute("id", "tableau");
-        table.setAttribute("width", "600px");
-        table.setAttribute("height", "600px");
-        table.setAttribute("border", "1");
+        table.setAttribute('class', "tableau");
+        table.setAttribute("border", "1px");
 
         table.appendChild(tableBody);
         body.appendChild(table);
@@ -81,6 +79,11 @@ class BATOGrid{
     //    }
     //    
     //}
+
+    // Fonction pour avoir un random entre 0 et max
+    getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
 
     // Fonction d'affichage du bateau sélectionné
     showCurrentShip(){
@@ -519,7 +522,16 @@ class BATOGrid{
                 // Récupération de la case
                 document.querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
                 if(this.grid[i][j] === 1){
-                    currentElement.setAttribute("class", "shipCase");
+                    let rand = this.getRandomInt(3);
+                    if(rand === 0){
+                        currentElement.setAttribute("class", "ship1");
+                    }
+                    else if(rand === 1){
+                        currentElement.setAttribute("class", "ship2");
+                    }
+                    else{
+                        currentElement.setAttribute("class", "ship3");
+                    }
                 }
             }
         }

@@ -1,10 +1,29 @@
+.tableau{
+    width: 600px;
+    height: 600px;
+    background-color: aliceblue;
+}
+
 .shipCase{
     background-color: black;
     color: white;
 }
 
+
+
 .ship{
     background-color: black;
     color: white;
-    
+}
+
+.ship1{
+    background-image: url(../image/space-ship1.jpg);
+}
+
+.ship2{
+    background-image: url(../image/space-ship2.jpg);
+}
+
+.ship3{
+    background-image: url(../image/space-ship3.jpg);
 }

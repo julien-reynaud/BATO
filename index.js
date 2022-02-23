@@ -13,10 +13,11 @@ const session = require('express-session')({
 });
 const {body, validationResult} = require('express-validator');
 
-
 app.use(express.static(__dirname + '/Front/'))
 
 app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/Front/html/make_grid.html');
+    /*
     let sessionData = req.session;
 
     if(!sessionData.username) // Si la session n'a pas d'username ca veut dire qu'on est pas co donc on envoie au login
@@ -26,7 +27,7 @@ app.get('/', (req, res) => {
     else // Sinon on est co donc on envoie au menu
     {
         res.sendFile(__dirname + '/Front/html/index.html');
-    }
+    }*/
 });
 
 app.get('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) => {
@@ -34,10 +35,12 @@ app.get('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) =
 });
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
-})
-
-http.listen(4200, () => {
-    console.log('Serveur lancé sur le port 4200');
+    socket.on('message', (msg) =>{
+        console.log(msg);
+        io.emit('message', msg);
+    });
 });
 
+http.listen(4300, () => {
+    console.log('Serveur lancÃ© sur le port 4300');
+});
