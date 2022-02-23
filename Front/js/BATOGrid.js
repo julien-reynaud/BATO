@@ -58,6 +58,8 @@ class BATOGrid{
         document.getElementById("croiseurH").addEventListener("click", event => this.clickShipButton(5));
         document.getElementById("contreTorpilleurH").addEventListener("click", event => this.clickShipButton(6));
         document.getElementById("torpilleurH").addEventListener("click", event => this.clickShipButton(7));
+
+        document.getElementById("start").addEventListener("click", event => this.clickStart());
     }
 
     //logKey(key){
@@ -497,8 +499,8 @@ class BATOGrid{
     }
 
     isGridFull(){
-        for(let i = 0; i < this.shipList.length(); i++){
-            if(this.shipList[i] != undefined){
+        for(let i = 0; i < this.shipList.length - 1; i++){
+            if(this.shipList[i] != -1){
                 return false;
             }
         }
@@ -527,6 +529,15 @@ class BATOGrid{
         }
     }
 
+    clickStart(){
+        if(this.isGridFull()){
+            console.log("redirection");
+            window.location.href="../html/loading.html";
+        }
+        else{
+            console.log("Grid is not completed");
+        }
+    }
 
 
 
@@ -534,4 +545,4 @@ class BATOGrid{
 
 
 
-//game = new BATOGrid;
+game = new BATOGrid;
