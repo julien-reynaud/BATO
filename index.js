@@ -87,6 +87,12 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
     
     // C'est ici qu'on verifie la validite des username / password
     // Pour l'instant on considere qu'il est tjrs bon
+
+    con.connect(err => {
+        if (err) throw err;
+        else console.log('Connexion effectuée');
+    });
+
     req.session.username = login; // el famoso username dont on teste la presence juste au-dessus
     // Le mot de passe est pas stocké dans les infos de la session, on vérifie seulement s'il est bon avec la bdd
     req.session.save(); // ctrl + s
