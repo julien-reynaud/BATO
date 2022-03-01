@@ -12,6 +12,18 @@ const session = require('express-session')({
     }
 });
 
+/*** Initialisation de la BDD ***/
+
+const fs = require('fs');
+const mysql = require('mysql');
+
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "testBato",
+});
+
 const {body, validationResult} = require('express-validator');
 const sharedsession = require('express-socket.io-session');
 const bodyParser = require('body-parser'); // Pour traiter la requête ajax. Permet d'utiliser req.body dans le app.post('/login')
@@ -19,8 +31,15 @@ const bodyParser = require('body-parser'); // Pour traiter la requête ajax. Per
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 io.use(sharedsession(session, {
+    // Session automatiquement sauvegardée en cas de modification
     autoSave: true
 }));
+
+// Détection de si nous sommes en production, pour sécuriser en https
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    session.cookie.secure = true // serve secure cookies
+}
 
 app.use(express.static(__dirname + '/Front/'))
 app.use(urlencodedParser);
@@ -39,6 +58,23 @@ app.get('/', (req, res) => {
     {
         console.log('Infos ok, on passe à la suite');
         res.sendFile(__dirname + '/Front/html/index.html');
+
+        /*con.connect(err => {
+            if (err) throw err;
+            else console.log('Connexion effectuée');
+        
+        /*    //Insérer une ligne dans la table
+            let test = sessionData.username;
+        
+            let sql = "INSERT INTO stockage (username) VALUES ('test')";
+            con.query(sql, (err, result)=>{
+                if (err) throw err;
+                console.log("One username inserted");
+                console.log(result);
+            });
+        
+        });*/
+        
     }
 });
 
