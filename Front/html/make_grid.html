@@ -7,10 +7,13 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="../css/grid.css">    
-    <title>Bataille Navale</title>
+    <title>Make Grid</title>
 </head>
 <ul id="messages"></ul>
 <body>
+    <!-- Armes -->
+    <div id = "canon"><img src="../img/canon.png" id="imgCanon"></div>
+    <!-- Fin armes -->
     <button data="0" id ="porteAvionV">Porte-Avion Vertical</button>
     <button data="1" id ="croiseurV">Croiseur Vertical</button>
     <button data="2" id ="contreTorpilleurV">Contre-Torpilleur Vertical</button>
@@ -22,8 +25,10 @@
     <button data="7" id ="torpilleurH">Torpilleur  Horizontal</button>
     <p id="currentShip">Select a ship</p>
     <p id="direction">Direction : N/A</p>
-
     <button data="start" id ="start">Start</button>
+
+    
+
 </body>
 <script src="../js/BATOGrid.js"></script>
 <script src="../js/socket.js"></script>

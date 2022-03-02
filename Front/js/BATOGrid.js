@@ -6,7 +6,6 @@ class BATOGrid{
     currentDirection = 2; // Direction actuelle
 
     constructor() {
-
         // Récupération et création d'élements html
         let body = document.getElementsByTagName("body")[0];
         let table = document.createElement("table");
@@ -147,7 +146,7 @@ class BATOGrid{
         //console.log(this.currentDirection);
         if(this.currentDirection == 1){
             if(this.currentShip == 0){
-                if(y-2 >= 0 && y+2 < 10 && this.grid[x][y-1] != 1 && this.grid[x][y-2] != 1 && this.grid[x][y] != 1 && this.grid[x][y+1] != 1 && this.grid[x][y+2] != 1){
+                if(y-2 >= 0 && y+2 < 10 && this.grid[x][y-1] == 0 && this.grid[x][y-2] == 0 && this.grid[x][y] == 0 && this.grid[x][y+1] == 0 && this.grid[x][y+2] == 0){
                     this.grid[x][y-1] = 1;
                     this.grid[x][y-2] = 1;
                     this.grid[x][y] = 1;
@@ -160,11 +159,11 @@ class BATOGrid{
                 }
             }
             else if(this.currentShip == 1){
-                if(y-2 >= 0 && y+1 < 10 && this.grid[x][y-1] != 1 && this.grid[x][y-2] != 1 && this.grid[x][y] != 1 && this.grid[x][y+1] != 1){
-                    this.grid[x][y-1] = 1;
-                    this.grid[x][y-2] = 1;
-                    this.grid[x][y] = 1;
-                    this.grid[x][y+1] = 1;
+                if(y-2 >= 0 && y+1 < 10 && this.grid[x][y-1] == 0 && this.grid[x][y-2] == 0 && this.grid[x][y] == 0 && this.grid[x][y+1] == 0){
+                    this.grid[x][y-1] = 2;
+                    this.grid[x][y-2] = 2;
+                    this.grid[x][y] = 2;
+                    this.grid[x][y+1] = 2;
                     this.shipList[this.shipList.findIndex(element => element == 1)] = -1;
                 }
                 else{
@@ -172,10 +171,10 @@ class BATOGrid{
                 }
             }
             else if(this.currentShip == 2){
-                if(y-1 >= 0 && y+1 < 10 && this.grid[x][y-1] != 1 && this.grid[x][y] != 1 && this.grid[x][y+1] != 1){
-                    this.grid[x][y-1] = 1;
-                    this.grid[x][y] = 1;
-                    this.grid[x][y+1] = 1;
+                if(y-1 >= 0 && y+1 < 10 && this.grid[x][y-1] == 0 && this.grid[x][y] == 0 && this.grid[x][y+1] == 0){
+                    this.grid[x][y-1] = 3;
+                    this.grid[x][y] = 3;
+                    this.grid[x][y+1] = 3;
                     this.shipList[this.shipList.findIndex(element => element == 2)] = -1;
                 }
                 else{
@@ -183,9 +182,9 @@ class BATOGrid{
                 }
             }
             else if(this.currentShip == 3){
-                if(y-1 >= 0 && this.grid[x][y-1] != 1 && this.grid[x][y] != 1){
-                    this.grid[x][y-1] = 1;
-                    this.grid[x][y] = 1;
+                if(y-1 >= 0 && this.grid[x][y-1] == 0 && this.grid[x][y] == 0){
+                    this.grid[x][y-1] = 4;
+                    this.grid[x][y] = 4;
                     this.shipList[this.shipList.findIndex(element => element == 3)] = -1;
                 }
                 else{
@@ -196,7 +195,7 @@ class BATOGrid{
         }
         else{
             if(this.currentShip == 0){
-                if(x-2 >= 0 && x+2 < 10 && this.grid[x-1][y] != 1 && this.grid[x-2][y] != 1 && this.grid[x][y] != 1 && this.grid[x+1][y] != 1 && this.grid[x+2][y] != 1){
+                if(x-2 >= 0 && x+2 < 10 && this.grid[x-1][y] == 0 && this.grid[x-2][y] == 0 && this.grid[x][y] == 0 && this.grid[x+1][y] == 0 && this.grid[x+2][y] == 0){
                     this.grid[x-1][y] = 1;
                     this.grid[x-2][y] = 1;
                     this.grid[x][y] = 1;
@@ -209,11 +208,11 @@ class BATOGrid{
                 }
             }
             else if(this.currentShip == 1){
-                if(x-2 >= 0 && x+1 < 10 && this.grid[x-1][y] != 1 && this.grid[x-2][y] != 1 && this.grid[x][y] != 1 && this.grid[x+1][y] != 1){
-                    this.grid[x-1][y] = 1;
-                    this.grid[x-2][y] = 1;
-                    this.grid[x][y] = 1;
-                    this.grid[x+1][y] = 1;
+                if(x-2 >= 0 && x+1 < 10 && this.grid[x-1][y] == 0 && this.grid[x-2][y] == 0 && this.grid[x][y] == 0 && this.grid[x+1][y] == 0){
+                    this.grid[x-1][y] = 2;
+                    this.grid[x-2][y] = 2;
+                    this.grid[x][y] = 2;
+                    this.grid[x+1][y] = 2;
                     this.shipList[this.shipList.findIndex(element => element == 1)] = -1;
                 }
                 else{
@@ -221,10 +220,10 @@ class BATOGrid{
                 }
             }
             else if(this.currentShip == 2){
-                if(x-1 >= 0 && x+1 < 10 && this.grid[x-1][y] != 1 && this.grid[x][y] != 1 && this.grid[x+1][y] != 1){
-                    this.grid[x-1][y] = 1;
-                    this.grid[x][y] = 1;
-                    this.grid[x+1][y] = 1;
+                if(x-1 >= 0 && x+1 < 10 && this.grid[x-1][y] == 0 && this.grid[x][y] == 0 && this.grid[x+1][y] == 0){
+                    this.grid[x-1][y] = 3;
+                    this.grid[x][y] = 3;
+                    this.grid[x+1][y] = 3;
                     this.shipList[this.shipList.findIndex(element => element == 2)] = -1;
                 }
                 else{
@@ -232,9 +231,9 @@ class BATOGrid{
                 }
             }
             else if(this.currentShip == 3){
-                if(x-1 >= 0 && this.grid[x-1][y] != 1 && this.grid[x][y] != 1){
-                    this.grid[x-1][y] = 1;
-                    this.grid[x][y] = 1;
+                if(x-1 >= 0 && this.grid[x-1][y] == 0 && this.grid[x][y] == 0){
+                    this.grid[x-1][y] = 4;
+                    this.grid[x][y] = 4;
                     this.shipList[this.shipList.findIndex(element => element == 3)] = -1;
                 }
                 else{
@@ -262,7 +261,7 @@ class BATOGrid{
         this.currentShip = -1;
         this.showCurrentShip();
 
-        console.log(this.grid);
+        //console.log(this.grid);
         this.showGrid();
     }
 
@@ -521,7 +520,7 @@ class BATOGrid{
 
                 // Récupération de la case
                 document.querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
-                if(this.grid[i][j] === 1){
+                if(this.grid[i][j] !== 0){
                     let rand = this.getRandomInt(3);
                     if(rand === 0){
                         currentElement.setAttribute("class", "ship1");
@@ -544,13 +543,48 @@ class BATOGrid{
     clickStart(){
         if(this.isGridFull()){
             console.log("redirection");
-            window.location.href="../html/loading.html";
+            // TMP ____________________________________________
+            // Récupération et création d'élements html
+            let body = document.getElementsByTagName("body")[0];
+            let table = document.createElement("table");
+            let tableBody = document.createElement("tbody");
+
+            // Création des cases avec des id et data distinct + remplissage de la grille
+            let l = 0;
+            for (let i = 0; i < 10; i++) {
+                let row = document.createElement("tr");
+                for (let j = 0; j < 10; j++) {
+                    var cell = document.createElement("td");
+                    //cell.setAttribute('id', "cell" + i + j);
+                    cell.setAttribute('id', l);
+                    cell.setAttribute('data', l);
+                    //cell.textContent = cell.getAttribute('data');
+                    //console.log(cell);
+                    row.appendChild(cell);
+                    this.grid[i][j] = 0;
+                    l++;
+                }
+                tableBody.appendChild(row);
+            }
+            //console.log(this.grid);
+            // Un peu de style
+            table.setAttribute('class', "tableau");
+            table.setAttribute("border", "1px");
+
+            table.appendChild(tableBody);
+            body.appendChild(table);
+            // ________________________________________________
+
+            //window.location.href="../html/game.html";
         }
         else{
             console.log("Grid is not completed");
         }
     }
 
+    getGrid(){
+        return(this.grid);
+    }
 
 
 };

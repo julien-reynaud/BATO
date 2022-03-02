@@ -1,5 +1,4 @@
 let socket = io();
-let inputMessage = "test";//document.getElementById('input');
 
 //Envoi message
 
@@ -8,7 +7,7 @@ function send(tir){
     socket.emit('message', tir.getAttribute("data"));
 }
 
-//RÃ©cuperer case du tir
+//Recuperer case du tir
 document.querySelectorAll("td").forEach(tir => tir.addEventListener("click", () => send(tir)));
 
 // Affichage d'un message
@@ -19,3 +18,12 @@ socket.on('message', msg => {
     newElement.innerHTML = msg;
     item.appendChild(newElement);
 });
+
+
+//Recuperer case bato
+//document.querySelectorAll("td").forEach();
+
+//Armes
+let canon = document.querySelector("#canon");
+
+canon.addEventListener("click", console.log("niu"));
