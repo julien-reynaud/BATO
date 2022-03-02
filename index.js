@@ -21,7 +21,7 @@ const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "testBato",
+    database: "bddBato.db",
 });
 
 const {body, validationResult} = require('express-validator');
@@ -86,11 +86,14 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
     const pwd = req.body.pwd;
     
     // C'est ici qu'on verifie la validite des username / password
-    // Pour l'instant on considere qu'il est tjrs bon
 
     con.connect(err => {
         if (err) throw err;
         else console.log('Connexion effectuée');
+
+        pseudo = "SELECT * FROM batoTable WHERE username = login AND password = pwd", (err, result) => {
+            if(err) throw err;
+        }
     });
 
     req.session.username = login; // el famoso username dont on teste la presence juste au-dessus
