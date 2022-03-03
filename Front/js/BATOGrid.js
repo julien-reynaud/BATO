@@ -569,7 +569,7 @@ class BATOGrid{
             //console.log(this.grid);
             // Un peu de style
             table.setAttribute('class', "tableau");
-            table.setAttribute("border", "1px");
+            table.setAttribute("border", "10px");
 
             table.appendChild(tableBody);
             body.appendChild(table);

@@ -1,7 +1,17 @@
+body{
+    background-image: url(../image/background.jpg);
+    background-size: 1000px;
+    padding-left: 7%;
+    color: white;
+}
+
 .tableau{
     width: 600px;
     height: 600px;
-    background-color: aliceblue;
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    border-radius: 10px;
 }
 
 .shipCase{
@@ -17,15 +27,15 @@
 }
 
 .ship1{
-    background-image: url(../image/space-ship1.jpg);
+    background-image: url(../image/space-ship1.png);
 }
 
 .ship2{
-    background-image: url(../image/space-ship2.jpg);
+    background-image: url(../image/space-ship2.png);
 }
 
 .ship3{
-    background-image: url(../image/space-ship3.jpg);
+    background-image: url(../image/space-ship3.png);
 }
 
 
