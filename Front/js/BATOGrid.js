@@ -259,7 +259,7 @@ class BATOGrid{
 
         // Initialistion à 0
         this.currentShip = -1;
-        this.showCurrentShip();
+        //this.showCurrentShip();
 
         //console.log(this.grid);
         this.showGrid();
@@ -272,42 +272,42 @@ class BATOGrid{
             if(data == 0){
                 this.currentDirection = 2;
                 this.currentShip = 0;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
             else if(data == 1){
                 this.currentDirection = 2;
                 this.currentShip = 1;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
             else if(data == 2){
                 this.currentDirection = 2;
                 this.currentShip = 2;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
             else if(data == 3){
                 this.currentDirection = 2;
                 this.currentShip = 3;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
             else if(data == 4){
                 this.currentDirection = 1;
                 this.currentShip = 0;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
             else if(data == 5){
                 this.currentDirection = 1;
                 this.currentShip = 1;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
             else if(data == 6){
                 this.currentDirection = 1;
                 this.currentShip = 2;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
             else if(data == 7){
                 this.currentDirection = 1;
                 this.currentShip = 3;
-                this.showCurrentShip();
+                //this.showCurrentShip();
             }
 
             this.setHoverEffects(data);
@@ -336,7 +336,7 @@ class BATOGrid{
                 }
 
                 for (let $i = row - 2; $i <= row + 2; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', 'red');
+                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
                 }
             })
             $('td').mouseleave(function(){
@@ -357,7 +357,7 @@ class BATOGrid{
                 }
 
                 for (let $i = row - 2; $i <= row + 1; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', 'red');
+                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
                 }
 
             })
@@ -379,7 +379,7 @@ class BATOGrid{
                 }
 
                 for (let $i = row - 1; $i <= row + 1; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', 'red');
+                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
                 }
 
             })
@@ -401,7 +401,7 @@ class BATOGrid{
                 }
 
                 for (let $i = row - 1; $i <= row; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', 'red');
+                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
                 }
 
             })
@@ -423,7 +423,7 @@ class BATOGrid{
                 }
 
                 for (let $i = col - 2; $i <= col + 2; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', 'red');
+                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
                 }
 
             })
@@ -445,7 +445,7 @@ class BATOGrid{
                 }
 
                 for (let $i = col - 2; $i <= col + 1; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', 'red');
+                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
                 }
 
             })
@@ -467,7 +467,7 @@ class BATOGrid{
                 }
 
                 for (let $i = col - 1; $i <= col + 1; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', 'red');
+                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
                 }
 
             })
@@ -489,7 +489,7 @@ class BATOGrid{
                 }
 
                 for (let $i = col - 1; $i <= col; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', 'red');
+                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
                 }
 
             })

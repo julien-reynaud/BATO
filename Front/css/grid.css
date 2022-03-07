@@ -1,44 +1,99 @@
-body{
+/*
+Color Palette
+#000000
+#051427
+#530f1e
+#a44322
+#f8bc04
+*/
+
+body {
     background-image: url(../image/background.jpg);
     background-size: 1000px;
     padding-left: 7%;
-    color: white;
+    color: #f8bc04;
 }
 
-.tableau{
-    width: 600px;
-    height: 600px;
-    background-color: transparent;
-    color: white;
-    border-color: white;
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    border: 2px solid #530f1e;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.btn-start {
+    background: #530f1e;
+    color: #f8bc04;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.btn-start:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background: #f8bc04;
+    transition: all 0.3s ease;
     border-radius: 10px;
 }
 
-.shipCase{
-    background-color: black;
-    color: white;
+.btn-start:hover {
+    color: #530f1e;
 }
 
-
-
-.ship{
-    background-color: black;
-    color: white;
+.btn-start:hover:after {
+    left: 0;
+    width: 100%;
 }
 
-.ship1{
+.btn-start:active {
+    top: 2px;
+}
+
+.tableau {
+    width: 600px;
+    height: 600px;
+    background-color: transparent;
+    color: #f8bc04;
+    border-color: #f8bc04;
+    border-radius: 10px;
+}
+
+.shipCase {
+    background-color: black;
+    color: #f8bc04;
+}
+
+.ship {
+    background-color: black;
+    color: #f8bc04;
+}
+
+.ship1 {
     background-image: url(../image/space-ship1.png);
 }
 
-.ship2{
+.ship2 {
     background-image: url(../image/space-ship2.png);
 }
 
-.ship3{
+.ship3 {
     background-image: url(../image/space-ship3.png);
 }
 
 
 /* Armes */
+
 
 /* Fin armes */

@@ -24,6 +24,6 @@ socket.on('message', msg => {
 //document.querySelectorAll("td").forEach();
 
 //Armes
-let canon = document.querySelector("#canon");
+//let canon = document.querySelector("#canon");
 
-canon.addEventListener("click", console.log("niu"));
+//canon.addEventListener("click", console.log("niu"));
