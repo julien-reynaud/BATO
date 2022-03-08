@@ -7,7 +7,8 @@ class BATOGrid{
 
     constructor() {
         // Récupération et création d'élements html
-        let body = document.getElementsByTagName("body")[0];
+        //let body = document.getElementsByTagName("body")[0];
+        let body = document.getElementById("grid");
         let table = document.createElement("table");
         let tableBody = document.createElement("tbody");
 
@@ -261,6 +262,33 @@ class BATOGrid{
         this.currentShip = -1;
         //this.showCurrentShip();
 
+        // Update Buttons
+
+        for(let ind = 0; ind < this.shipList.length; ind++){
+            if(this.shipList[ind] == -1 && ind != 2 || this.shipList[ind] == -1 && ind == 2 && this.shipList[ind + 1] == -1){
+                if(ind == 0){
+                    document.getElementById("porteAvionV").setAttribute("class", "custom-btn btn-use");
+                    document.getElementById("porteAvionH").setAttribute("class", "custom-btn btn-use");
+                }
+                else if(ind == 1){
+                    document.getElementById("croiseurV").setAttribute("class", "custom-btn btn-use");
+                    document.getElementById("croiseurH").setAttribute("class", "custom-btn btn-use");
+                }
+                else if(ind == 2){
+                    document.getElementById("contreTorpilleurV").setAttribute("class", "custom-btn btn-use");
+                    document.getElementById("contreTorpilleurH").setAttribute("class", "custom-btn btn-use");
+                }
+                else if(ind == 3){
+                    document.getElementById("contreTorpilleurV").setAttribute("class", "custom-btn btn-use");
+                    document.getElementById("contreTorpilleurH").setAttribute("class", "custom-btn btn-use");
+                }
+                else if(ind == 4){
+                    document.getElementById("torpilleurV").setAttribute("class", "custom-btn btn-use");
+                    document.getElementById("torpilleurH").setAttribute("class", "custom-btn btn-use");
+                }
+            }
+        }
+
         //console.log(this.grid);
         this.showGrid();
     }
@@ -327,7 +355,6 @@ class BATOGrid{
             $('td').mouseover(function(){
                 const col = $(this).index();
                 const row = $(this).closest('tr').index();
-
                 // Reset
                 for (let $i = row - 2; $i <= row + 2; $i++){
                     for(let $j = col -2; $j<= col + 2; $j++){

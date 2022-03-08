@@ -26,6 +26,8 @@ body {
 }
 
 .btn-start {
+    margin-left: 235px;
+    margin-top: 10px;
     background: #530f1e;
     color: #f8bc04;
     line-height: 42px;
@@ -61,13 +63,88 @@ body {
     top: 2px;
 }
 
+.btn-bato {
+    margin-right: 20px;
+    background: #530f1e;
+    color: #f8bc04;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.btn-bato:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background: #f8bc04;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.btn-bato:hover {
+    color: #530f1e;
+}
+
+.btn-bato:hover:after {
+    left: 0;
+    width: 100%;
+}
+
+.btn-bato:active {
+    top: 2px;
+}
+
+.btn-use {
+    margin-right: 20px;
+    background: #25090f;
+    color: #af8506;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+/*.btn-use:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: -1;
+    background: #f8bc04;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.btn-use:hover {
+    color: #530f1e;
+}
+
+.btn-use:hover:after {
+    left: 0;
+    width: 100%;
+}
+
+.btn-use:active {
+    top: 2px;
+}*/
+
 .tableau {
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 500px;
     background-color: transparent;
     color: #f8bc04;
     border-color: #f8bc04;
     border-radius: 10px;
+    margin-left: 3%;
 }
 
 .shipCase {
