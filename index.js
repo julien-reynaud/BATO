@@ -20,8 +20,8 @@ const mysql = require('mysql');
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
-    database: "bddBato.db",
+    password: "toto",
+    database: "BATO_users",
 });
 
 const {body, validationResult} = require('express-validator');
@@ -58,22 +58,6 @@ app.get('/', (req, res) => {
     {
         console.log('Infos ok, on passe à la suite');
         res.sendFile(__dirname + '/Front/html/index.html');
-
-        /*con.connect(err => {
-            if (err) throw err;
-            else console.log('Connexion effectuée');
-        
-        /*    //Insérer une ligne dans la table
-            let test = sessionData.username;
-        
-            let sql = "INSERT INTO stockage (username) VALUES ('test')";
-            con.query(sql, (err, result)=>{
-                if (err) throw err;
-                console.log("One username inserted");
-                console.log(result);
-            });
-        
-        });*/
         
     }
 });
@@ -91,8 +75,11 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
         if (err) throw err;
         else console.log('Connexion effectuée');
 
-        pseudo = "SELECT * FROM batoTable WHERE username = login AND password = pwd", (err, result) => {
-            if(err) throw err;
+        verif = "SELECT * FROM batoTable WHERE username = login AND password = pwd";
+
+        if(verif.username !== login || verif.password !== pwd){
+           let msgError = document.getElementByID("titre");
+           msgError.innerHTML("Erreur. Veuillez vérifier vos identifiants ou vous créer un compte.")
         }
     });
 
@@ -100,6 +87,34 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
     // Le mot de passe est pas stocké dans les infos de la session, on vérifie seulement s'il est bon avec la bdd
     req.session.save(); // ctrl + s
     res.redirect('/'); // Et on renvoie la-haut pour passer a la suite
+});
+
+app.post('/create', body('login').isLength({min: 3}).trim().escape(), (req, res) => {
+    console.log("Creation de compte");
+
+    console.log(req.body);
+    const login = req.body.login;
+    const pwd = req.body.pwd;
+
+    verif = "SELECT * FROM users WHERE username = login";
+
+    if(verif.username == login){
+        let msgError = document.getElementByID("titre");
+        msgError.innerHTML("Pseudo déjà utilisé !")
+    }
+    else{
+        let sql = "INSERT INTO users (username, pwd) VALUES (login, pwd)";
+
+        con.query(sql, (err, result)=>{
+            if (err) throw err;
+            console.log("One username inserted");
+            console.log(result);
+        });
+    }
+
+    req.session.username = login;
+    req.session.save();
+    res.redirect('/');
 });
 
 io.on('connection', (socket) => {

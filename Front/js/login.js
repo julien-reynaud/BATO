@@ -8,3 +8,12 @@ form.addEventListener("submit", event => {
     console.log("submit");
     logFunc.sendLogin(pseudo.value, pwd.value);
 });
+
+let creationForm = document.getElementById("creationForm");
+
+creationForm.addEventListener("submit", event => {
+    event.preventDefault();
+    // Quand on submit on envoie les id et mdp a logFunc() en utilisant une autre fonction du module
+    console.log("submit");
+    logFunc.sendNewLog(pseudo.value, pwd.value);
+});
