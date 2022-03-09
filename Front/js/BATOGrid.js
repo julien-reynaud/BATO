@@ -361,9 +361,11 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = row - 2; $i <= row + 2; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                //console.log($(this).grid[row-2][col])
+                if(row-2 >= 0 && row-1 >= 0 && row+1 <= 9 && row+2 <= 9 /*&& this.grid[row-2][col] == 0*/){
+                    for (let $i = row - 2; $i <= row + 2; $i++){
+                        $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                    }
                 }
             })
             $('td').mouseleave(function(){
@@ -382,11 +384,11 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = row - 2; $i <= row + 1; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                if(row-2 >= 0 && row-1 >= 0 && row+1 <= 9){
+                    for (let $i = row - 2; $i <= row + 1; $i++){
+                        $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                    }
                 }
-
             })
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
@@ -404,9 +406,10 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = row - 1; $i <= row + 1; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                if(row-1 >= 0 && row+1 <= 9){
+                    for (let $i = row - 1; $i <= row + 1; $i++){
+                        $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                    }
                 }
 
             })
@@ -426,11 +429,11 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = row - 1; $i <= row; $i++){
-                    $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                if(row-1 >= 0){
+                    for (let $i = row - 1; $i <= row; $i++){
+                        $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
+                    }
                 }
-
             })
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
@@ -448,11 +451,11 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = col - 2; $i <= col + 2; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                if(col-2 >= 0 && col-1 >= 0 && col+1 <= 9 && col+2 <= 9){
+                    for (let $i = col - 2; $i <= col + 2; $i++){
+                        $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                    }
                 }
-
             })
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
@@ -470,11 +473,11 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = col - 2; $i <= col + 1; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                if(col-2 >= 0 && col-1 >= 0 && col+1 <= 9){
+                    for (let $i = col - 2; $i <= col + 1; $i++){
+                        $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                    }
                 }
-
             })
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
@@ -492,11 +495,11 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = col - 1; $i <= col + 1; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                if(col-1 >= 0 && col+1 <= 9){
+                    for (let $i = col - 1; $i <= col + 1; $i++){
+                        $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                    }
                 }
-
             })
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
@@ -514,11 +517,11 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-
-                for (let $i = col - 1; $i <= col; $i++){
-                    $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                if(col-1 >= 0){
+                    for (let $i = col - 1; $i <= col; $i++){
+                        $('tr:eq('+ row +') td:eq('+ $i +')').css('background-color', '#530f1e');
+                    }
                 }
-
             })
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
