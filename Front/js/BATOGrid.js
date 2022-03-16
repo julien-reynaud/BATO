@@ -576,37 +576,37 @@ class BATOGrid{
             // TMP ____________________________________________
             // Récupération et création d'élements html
             //let body = document.getElementsByTagName("body")[0];
-            let body = document.getElementById("grid");
-            let table = document.createElement("table");
-            let tableBody = document.createElement("tbody");
-
-            // Création des cases avec des id et data distinct + remplissage de la grille
-            let l = 0;
-            for (let i = 0; i < 10; i++) {
-                let row = document.createElement("tr");
-                for (let j = 0; j < 10; j++) {
-                    var cell = document.createElement("td");
-                    //cell.setAttribute('id', "cell" + i + j);
-                    cell.setAttribute('id', l);
-                    cell.setAttribute('data', l);
-                    //cell.textContent = cell.getAttribute('data');
-                    //console.log(cell);
-                    row.appendChild(cell);
-                    this.grid[i][j] = 0;
-                    l++;
-                }
-                tableBody.appendChild(row);
-            }
+            //let body = document.getElementById("grid");
+            //let table = document.createElement("table");
+            //let tableBody = document.createElement("tbody");
+//
+            //// Création des cases avec des id et data distinct + remplissage de la grille
+            //let l = 0;
+            //for (let i = 0; i < 10; i++) {
+            //    let row = document.createElement("tr");
+            //    for (let j = 0; j < 10; j++) {
+            //        var cell = document.createElement("td");
+            //        //cell.setAttribute('id', "cell" + i + j);
+            //        cell.setAttribute('id', l);
+            //        cell.setAttribute('data', l);
+            //        //cell.textContent = cell.getAttribute('data');
+            //        //console.log(cell);
+            //        row.appendChild(cell);
+            //        this.grid[i][j] = 0;
+            //        l++;
+            //    }
+            //    tableBody.appendChild(row);
+            //}
             //console.log(this.grid);
             // Un peu de style
-            table.setAttribute('class', "tableau");
-            table.setAttribute("border", "10px");
-
-            table.appendChild(tableBody);
-            body.appendChild(table);
+            //table.setAttribute('class', "tableau");
+            //table.setAttribute("border", "10px");
+//
+            //table.appendChild(tableBody);
+            //body.appendChild(table);
             // ________________________________________________
 
-            //window.location.href="../html/game.html";
+            window.location.href="../html/matchmaking.html";
         }
         else{
             console.log("Grid is not completed");

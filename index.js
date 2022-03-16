@@ -34,10 +34,34 @@ app.get('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) =
     // C'est ici qu'on verifie la validite des username / password
 });
 
+let arrayUser = [];
+let sameUser = false;
+
 io.on('connection', (socket) => {
     socket.on('message', (msg) =>{
         console.log(msg);
         io.emit('message', msg);
+    });
+
+    //Rooms
+    socket.on("user join", (username)=>{
+        for(const elt of arrayUser){
+            if(elt == username){
+                sameUser = true;
+            }
+        }
+        if(arrayUser.length < 2 && sameUser == false){
+            arrayUser.push(username);
+            io.emit("print user", username);
+        }
+        console.log(arrayUser);
+    });
+    socket.on("room", (roomname)=>{
+        
+        if(arrayUser.length < 3 && sameUser == false){
+            socket.join(roomname);
+        }
+        sameUser = false;
     });
 });
 
