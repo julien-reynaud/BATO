@@ -575,7 +575,8 @@ class BATOGrid{
             console.log("redirection");
             // TMP ____________________________________________
             // Récupération et création d'élements html
-            let body = document.getElementsByTagName("body")[0];
+            //let body = document.getElementsByTagName("body")[0];
+            let body = document.getElementById("grid");
             let table = document.createElement("table");
             let tableBody = document.createElement("tbody");
 

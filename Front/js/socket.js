@@ -13,10 +13,10 @@ document.querySelectorAll("td").forEach(tir => tir.addEventListener("click", () 
 // Affichage d'un message
 
 socket.on('message', msg => {
-    let item = document.getElementById('messages');
-    let newElement = document.createElement('p');
-    newElement.innerHTML = msg;
-    item.appendChild(newElement);
+    //let item = document.getElementById('messages');
+    //let newElement = document.createElement('p');
+    //newElement.innerHTML = msg;
+    //item.appendChild(newElement);
 });
 
 
