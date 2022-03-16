@@ -35,6 +35,7 @@ app.get('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) =
 });
 
 let arrayUser = [];
+let userConnected = [];
 let sameUser = false;
 
 io.on('connection', (socket) => {
@@ -63,8 +64,33 @@ io.on('connection', (socket) => {
         }
         sameUser = false;
     });
+    socket.on("new_user_grid", (grid)=>{
+        let newUser = new User();
+        newUser.setGrid(grid);
+        newUser.setUsername(userConnected.length);
+        console.log("User :", newUser.username, "has connected.")
+        userConnected.push(newUser);
+    })
+    //socket.on("disconnect", () =>{
+    //    console.log("User has disconnected.")
+    //})
 });
 
 http.listen(4200, () => {
     console.log('Serveur lancé sur le port 4200');
 });
+
+class User{
+    constructor(){
+        this.username = "";
+        this.grid = [];
+    }
+
+    setUsername(newUsername){
+        this.username = newUsername;
+    }
+
+    setGrid(newGrid){
+        this.grid = newGrid;
+    }
+}

@@ -1,3 +1,5 @@
+let socket = io();
+
 class BATOGrid{
     grid; // Grille du jeu
     event;  // Liste d'événements
@@ -605,7 +607,7 @@ class BATOGrid{
             //table.appendChild(tableBody);
             //body.appendChild(table);
             // ________________________________________________
-
+            socket.emit("new_user_grid", this.grid);
             window.location.href="../html/matchmaking.html";
         }
         else{
