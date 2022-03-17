@@ -2,6 +2,8 @@ const express = require('express');
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const { v4: uuidv4 } = require('uuid');
+//const uuid = require('uuid');
 const session = require('express-session')({
     secret: "eb8fcc253281389225b4f7872f2336918ddc7f689e1fc41b64d5c4f378cdc438",
     resave: true,
@@ -38,7 +40,13 @@ let arrayUser = [];
 let userConnected = [];
 let sameUser = false;
 
+const rooms = {};
+
 io.on('connection', (socket) => {
+
+    socket.id = uuidv4();
+    console.log('A user connected');
+
     socket.on('message', (msg) =>{
         console.log(msg);
         io.emit('message', msg);
@@ -46,16 +54,18 @@ io.on('connection', (socket) => {
 
     //Rooms
     socket.on("user join", (username)=>{
-        for(const elt of arrayUser){
-            if(elt == username){
-                sameUser = true;
-            }
+        if(username != ''){
+            for(const elt of arrayUser){
+               if(elt == username){
+                   sameUser = true;
+               }
+           }
+           if(arrayUser.length < 2 && sameUser == false){
+               arrayUser.push(username);
+               io.emit("print user", username);
+           }
+           console.log(arrayUser);
         }
-        if(arrayUser.length < 2 && sameUser == false){
-            arrayUser.push(username);
-            io.emit("print user", username);
-        }
-        console.log(arrayUser);
     });
     socket.on("room", (roomname)=>{
         
@@ -94,3 +104,43 @@ class User{
         this.grid = newGrid;
     }
 }
+
+/**
+ * Will connect a socket to a specified room
+ * @param socket A connected socket.io socket
+ * @param room An object that represents a room from the `rooms` instance variable object
+ */
+const joinRoom = (socket, room) => {
+  room.sockets.push(socket);
+  socket.join(room.id, () => {
+    // store the room id in the socket for future use
+    socket.roomId = room.id;
+    console.log(socket.id, "Joined", room.id);
+  });
+};
+
+/**
+ * Will make the socket leave any rooms that it is a part of
+ * @param socket A connected socket.io socket
+ */
+ const leaveRooms = (socket) => {
+    const roomsToDelete = [];
+    for (const id in rooms) {
+      const room = rooms[id];
+      // check to see if the socket is in the current room
+      if (room.sockets.includes(socket)) {
+        socket.leave(id);
+        // remove the socket from the room object
+        room.sockets = room.sockets.filter((item) => item !== socket);
+      }
+      // Prepare to delete any rooms that are now empty
+      if (room.sockets.length == 0) {
+        roomsToDelete.push(room);
+      }
+    }
+  
+    // Delete all the empty rooms that we found earlier
+    for (const room of roomsToDelete) {
+      delete rooms[room.id];
+    }
+  };
