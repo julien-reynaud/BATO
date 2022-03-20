@@ -55,16 +55,26 @@ io.on('connection', (socket) => {
     //Rooms
     socket.on("user join", (username)=>{
         if(username != ''){
-            for(const elt of arrayUser){
-               if(elt == username){
+            for(let j = 0; j < arrayUser.length; j++){
+               if(arrayUser[j].username == username){
                    sameUser = true;
                }
-           }
-           if(arrayUser.length < 2 && sameUser == false){
-               arrayUser.push(username);
-               io.emit("print user", username);
-           }
-           console.log(arrayUser);
+            }
+            if(arrayUser.length < 2 && sameUser == false){
+                //Temporaire
+                for(let i = 0; i < userConnected.length; i++){
+                    if(!userConnected[i].isUsername()){
+                        userConnected[i].setUsername(username);
+                        arrayUser.push(userConnected[i]);
+                        io.emit("print user", username);
+                        console.log(userConnected[i]);
+                    }
+                }
+            }
+            //if(arrayUser.length == 2){
+            //    startGame();
+            //}
+            //console.log(arrayUser);
         }
     });
     socket.on("room", (roomname)=>{
@@ -77,18 +87,33 @@ io.on('connection', (socket) => {
     socket.on("new_user_grid", (grid)=>{
         let newUser = new User();
         newUser.setGrid(grid);
-        newUser.setUsername(userConnected.length);
-        console.log("User :", newUser.username, "has connected.")
+        //newUser.setUsername(userConnected.length);
+        console.log("User :", /*newUser.username,*/ "has connected.")
         userConnected.push(newUser);
     })
     //socket.on("disconnect", () =>{
     //    console.log("User has disconnected.")
     //})
+
+    socket.on("getP1Grid", ()=>{
+        io.emit("p1Grid", arrayUser[0].getGrid());
+    })
+
+    socket.on("getP2Grid", ()=>{
+        io.emit("p2Grid", arrayUser[1].getGrid());
+    })
+
+    
 });
+
 
 http.listen(4200, () => {
     console.log('Serveur lancé sur le port 4200');
 });
+
+function startGame(){
+    window.location.href = "../html/game.html";
+}
 
 class User{
     constructor(){
@@ -102,6 +127,17 @@ class User{
 
     setGrid(newGrid){
         this.grid = newGrid;
+    }
+
+    isUsername(){
+        if(this.username == ""){
+            return false;
+        }
+        return true;
+    }
+
+    getGrid(){
+        return this.grid;
     }
 }
 
