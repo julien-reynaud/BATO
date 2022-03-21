@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="../css/grid.css">    
+    <title>Make Grid</title>
+</head>
+<ul id="messages"></ul>
+<body>
+    <!-- Armes 
+    <div id = "canon"><img src="../img/canon.png" id="imgCanon"></div> -->
+    <!-- Fin armes -->
+    <div class="div-btn-bato">
+        <h3>Vertical Formation</h3>
+        <button class="custom-btn btn-bato" data="0" id ="porteAvionV">5 ships</button>
+        <button class="custom-btn btn-bato" data="1" id ="croiseurV">4 ships</button>
+        <button class="custom-btn btn-bato" data="2" id ="contreTorpilleurV">3 ships</button>
+        <button class="custom-btn btn-bato" data="3" id ="torpilleurV">2 ships</button>
+        <br>
+        <h3>Horizontal Formation</h3>
+        <button class="custom-btn btn-bato" data="4" id ="porteAvionH">5 ships</button>
+        <button class="custom-btn btn-bato" data="5" id ="croiseurH">4 ships</button>
+        <button class="custom-btn btn-bato" data="6" id ="contreTorpilleurH">3 ships</button>
+        <button class="custom-btn btn-bato" data="7" id ="torpilleurH">2 ships</button>
+    </div>
+    <br>
+    <!--<p id="currentShip">Select a ship</p>
+    <p id="direction">Direction : N/A</p>-->
+    <div id="grid"></div>
+    <button data="start" id ="start" class="custom-btn btn-start">START</button>
+    
+
+</body>
+<script src="../js/BATOGrid.js"></script>
+<script src="../js/socket.js"></script>
+</html>

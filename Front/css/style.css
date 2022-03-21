@@ -1,0 +1,17 @@
+#join, #create{
+    margin-top: 20%;
+    margin-left: 45%;
+    float:left;
+    width: 10%;
+    font-size:30px;
+}
+#roomBox {
+    float:right;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    margin:auto;
+    padding-bottom:10%;
+    padding-left:10%;
+    padding-right:10%;
+}
