@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/socket.io/socket.io.js"></script>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <link rel="stylesheet" href="../css/grid.css">   
     <title>Game</title>
 </head>
 <body>
-    
+    <div>
+        <button class="custom-btn btn-bato" data="0" id ="missile">Missile</button>
+        <button class="custom-btn btn-bato" data="1" id ="torpille">Torpille</button>
+        <button class="custom-btn btn-bato" data="2" id ="bombe_a_fragment">Bombe à fragment</button>
+        <button class="custom-btn btn-bato" data="2" id ="radar">Radar</button>
+    </div>
+    <div id="GridAdversaire"><h2>Opponent Grid</h2></div>
+    <div id="GridPlayer"><h2>My Grid</h2></div>    
 </body>
 <script src="../js/BATOGame.js"></script>
 </html>

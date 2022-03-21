@@ -174,3 +174,21 @@ body {
 
 
 /* Fin armes */
+
+/* Game */
+#GridAdversaire, #GridPlayer {
+    display: inline-block;
+    text-align: center;
+}
+
+#GridAdversaire{
+    margin-left: 3%;
+}
+
+#GridPlayer{
+    margin-left: 15%;
+}
+
+.caseTouched{
+    background-color: #051427;
+}
