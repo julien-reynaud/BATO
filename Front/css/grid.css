@@ -190,5 +190,26 @@ body {
 }
 
 .caseTouched{
-    background-color: #051427;
+    /*background-color: #a44322;*/
+    background-image: url(../image/croix-rouge.png);
+}
+
+.caseTouchedRadar{
+    background-color: #719e53;
+    background-image: url(../image/croix-rouge.png);
+}
+
+.ship1Radar {
+    background-color: #719e53;
+    background-image: url(../image/space-ship1.png);
+}
+
+.ship2Radar {
+    background-color: #719e53;
+    background-image: url(../image/space-ship2.png);
+}
+
+.ship3Radar {
+    background-color: #719e53;
+    background-image: url(../image/space-ship3.png);
 }

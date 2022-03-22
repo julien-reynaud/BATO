@@ -138,7 +138,7 @@ class BATOGame {
 
                 // Récupération de la case
                 document.getElementById("GridPlayer").querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
-                if(this.p2Grid[i][j] !== 0){
+                if(this.p1Grid[i][j] !== 0){
                     let rand = this.getRandomInt(3);
                     if(rand === 0){
                         currentElement.setAttribute("class", "ship1");
@@ -168,7 +168,8 @@ class BATOGame {
             }
         })
         //Vérification de si l'arme est
-        if(data == 0 || (data == 1 && this.torpilleAvailable) || (data == 2 && this.bombeAFragmentAvailable) || (data == 3 && this.radarAvailable)){
+        this.currentWeapon = null;
+        if(data == 0 || (data == 1 && this.torpilleAvailable == true) || (data == 2 && this.bombeAFragmentAvailable == true) || (data == 3 && this.radarAvailable == true)){
             if(data == 0){
                 this.currentWeapon = 0;
             }
@@ -181,11 +182,13 @@ class BATOGame {
             else if(data == 3){
                 this.currentWeapon = 3;
             }
+
+            this.setHoverEffects(data);
+            
+            document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.addEventListener("click", () => this.updateGrid(e)));
         }
 
-        this.setHoverEffects(data);
-            
-        document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.addEventListener("click", () => this.clickGrid(e)));
+        
     }
 
     setHoverEffects(data){
@@ -256,30 +259,7 @@ class BATOGame {
         }
     }
 
-    clickGrid(element){
-        let x = Math.floor((element.getAttribute("data")) / 10);
-        let y = Math.floor((element.getAttribute("data")) % 10);
-
-        let id = x * 10 + y;
-        let currentElement;
-
-        if(this.p1Grid[x][y] !== 0){
-            document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
-            let rand = this.getRandomInt(3);
-            if(rand === 0){
-                currentElement.setAttribute("class", "ship1");
-            }
-            else if(rand === 1){
-                currentElement.setAttribute("class", "ship2");
-            }
-            else{
-                currentElement.setAttribute("class", "ship3");
-            }
-        }
-        else{
-            document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
-            currentElement.setAttribute("class", "caseTouched");
-        }
+    updateGrid(element){
 
         //Retrait du hover
         $('#GridAdversaire td').mouseover(function(){
@@ -293,6 +273,145 @@ class BATOGame {
                 }
             }
         })
+
+        let x = Math.floor((element.getAttribute("data")) / 10);
+        let y = Math.floor((element.getAttribute("data")) % 10);
+
+        let id;
+        if(this.currentWeapon == 0 || this.currentWeapon == 1){
+            id = x * 10 + y;
+        }
+        else if(this.currentWeapon == 2){
+            id = [x * 10 + y, 
+                (x + 1) * 10 + y + 1, 
+                (x + 1) * 10 + y - 1,
+                (x - 1) * 10 + y - 1,
+                (x - 1) * 10 + y + 1]
+        }
+        else if(this.currentWeapon == 3){
+            id = [x * 10 + y, 
+                (x + 1) * 10 + y + 1, 
+                (x + 1) * 10 + y - 1,
+                (x - 1) * 10 + y - 1,
+                (x - 1) * 10 + y + 1,
+                (x + 1) * 10 + y,
+                (x - 1) * 10 + y,
+                (x) * 10 + y + 1,
+                (x) * 10 + y - 1]
+        }
+        let currentElement;
+
+        // TIR SIMPLE
+        if(this.currentWeapon == 0){
+            if(this.p1Grid[x][y] !== 0 && this.p1Grid[x][y] !== -1){
+                document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
+                let rand = this.getRandomInt(3);
+                if(rand === 0){
+                    currentElement.setAttribute("class", "ship1");
+                }
+                else if(rand === 1){
+                    currentElement.setAttribute("class", "ship2");
+                }
+                else{
+                    currentElement.setAttribute("class", "ship3");
+                }
+                this.p1Grid[x][y] = 10;
+            }
+            else{
+                document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
+                currentElement.setAttribute("class", "caseTouched");
+                this.p1Grid[x][y] = -1
+            }
+            this.currentWeapon = null;
+        }
+        else if(this.currentWeapon == 1){
+            this.torpilleAvailable = false;
+            document.getElementById("torpille").setAttribute("class", "custom-btn btn-use");
+            this.currentWeapon = null;
+        }
+        else if(this.currentWeapon == 2){
+            for(let i = 0; i < id.length; i++){
+                let x = Math.floor(id[i] / 10);
+                let y = Math.floor(id[i] % 10);
+                if(this.p1Grid[x][y] !== 0 && this.p1Grid[x][y] !== -1){
+                    document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id[i].toString() ? currentElement = e : '');
+                    let rand = this.getRandomInt(3);
+                    if(rand === 0){
+                        currentElement.setAttribute("class", "ship1");
+                    }
+                    else if(rand === 1){
+                        currentElement.setAttribute("class", "ship2");
+                    }
+                    else{
+                        currentElement.setAttribute("class", "ship3");
+                    }
+                    this.p1Grid[x][y] = 10;
+                }
+                else{
+                    document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id[i].toString() ? currentElement = e : '');
+                    currentElement.setAttribute("class", "caseTouched");
+                    this.p1Grid[x][y] = -1
+                }
+            }
+            this.bombeAFragmentAvailable = false;
+            document.getElementById("bombe_a_fragment").setAttribute("class", "custom-btn btn-use");
+            this.currentWeapon = null;
+        }
+        else if(this.currentWeapon == 3){
+            for(let i = 0; i < id.length; i++){
+                let x = Math.floor(id[i] / 10);
+                let y = Math.floor(id[i] % 10);
+                if(this.p1Grid[x][y] !== 0 && this.p1Grid[x][y] !== -1){
+                    document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id[i].toString() ? currentElement = e : '');
+                    let rand = this.getRandomInt(3);
+                    if(rand === 0){
+                        currentElement.setAttribute("class", "ship1Radar");
+                    }
+                    else if(rand === 1){
+                        currentElement.setAttribute("class", "ship2Radar");
+                    }
+                    else{
+                        currentElement.setAttribute("class", "ship3Radar");
+                    }
+                }
+                else{
+                    document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id[i].toString() ? currentElement = e : '');
+                    currentElement.setAttribute("class", "caseTouchedRadar");
+                }
+            }
+            setTimeout(() => {
+                for(let i = 0; i < id.length; i++){
+                    let x = Math.floor(id[i] / 10);
+                    let y = Math.floor(id[i] % 10);
+                    if(this.p1Grid[x][y] === 10){
+                        document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id[i].toString() ? currentElement = e : '');
+                        let rand = this.getRandomInt(3);
+                        if(rand === 0){
+                            currentElement.setAttribute("class", "ship1");
+                        }
+                        else if(rand === 1){
+                            currentElement.setAttribute("class", "ship2");
+                        }
+                        else{
+                            currentElement.setAttribute("class", "ship3");
+                        }
+                    }
+                    else if(this.p1Grid[x][y] === -1){
+                        document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id[i].toString() ? currentElement = e : '');
+                        currentElement.setAttribute("class", "caseTouched");
+                    }
+                    else{
+                        document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id[i].toString() ? currentElement = e : '');
+                        currentElement.setAttribute("class", "");
+                    }
+                }
+
+            }, 5000);
+
+            this.radarAvailable = false;
+            document.getElementById("radar").setAttribute("class", "custom-btn btn-use");
+            this.currentWeapon = null;
+        }
     }
 
 }
