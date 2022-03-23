@@ -608,7 +608,7 @@ class BATOGrid{
             //body.appendChild(table);
             // ________________________________________________
             socket.emit("new_user_grid", this.grid);
-            window.location.href="../html/matchmaking.html";
+            window.location.href="../html/index.html";
         }
         else{
             console.log("Grid is not completed");

@@ -17,15 +17,16 @@ class User{
     }
 }
 
-let pseudo = document.querySelector("#pseudo");
-pseudo.addEventListener('click', getPseudo);
+/*let pseudo = document.querySelector("#pseudo");
+pseudo.addEventListener('click', getPseudo);*/
 
 var user = new User();
-function getPseudo(event){
+user.setUsername(pseudo);
+/*function getPseudo(event){
     event.preventDefault();
     user.setUsername(document.getElementById("inputPseudo").value);
 
-}
+}*/
 
 //Room
 let btnJoin = document.querySelector(".btnJoin");

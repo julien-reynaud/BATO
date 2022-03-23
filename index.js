@@ -59,11 +59,15 @@ app.get('/', (req, res) => {
         console.log('On envoie l\'user se co');
         res.sendFile(__dirname + '/Front/html/login.html');
     }
+    else if(sessionData.username == -1)
+    {
+        res.sendFile(__dirname + '/Front/html/newAccount.html');
+    }
     else // Sinon on est co donc on envoie au menu
     {
         console.log('Infos ok, on passe à la suite');
         res.sendFile(__dirname + '/Front/html/index.html');
-        
+        res.send({pseudo: sessionData.username});
     }
 });
 
@@ -98,26 +102,16 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
 
             if(result[0] == undefined){
                 isOke = false;
-                console.log("pas Oké :(");
-             }
-             else
-             {
-                 console.log("Oké :)");
-             }
+            }
 
-             console.log(isOke);
-        //verifDone = true; // Comme ça on a un moyen de vérifier que le serveur a bien commniqué la réponse
+            console.log(isOke);
+        //verifDone = true; // Comme ça on a un moyen de vérifier que le serveur a bien communiqué la réponse
 
         if(isOke)
         {
             req.session.username = login; // el famoso username dont on teste la presence juste au-dessus
             // Le mot de passe est pas stocké dans les infos de la session, on vérifie seulement s'il est bon avec la bdd
             req.session.save(); // ctrl + s
-            console.log("C bon :)");
-        }
-        else
-        {
-            console.log("Casse-toi connard, tes id sont pas bons");
         }
         
         res.redirect('/');
@@ -126,6 +120,14 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
 });
 
 app.post('/create', body('login').isLength({min: 3}).trim().escape(), (req, res) => {
+
+    const con = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "toto",
+        database: "batodb",
+    });
+
     console.log("Creation de compte");
 
     console.log(req.body);
@@ -137,11 +139,14 @@ app.post('/create', body('login').isLength({min: 3}).trim().escape(), (req, res)
     con.query(verif, (err, result) => {
         if(err) throw err;
 
+        console.log(verif);
+
         if(result[0] != undefined){
             let msgError = document.getElementByID("titre");
             msgError.innerHTML("Pseudo déjà utilisé !")
         }
         else{
+            console.log("tentative d'insertion");
             let sql = "INSERT INTO users (username, pwd) VALUES ('" + login + "', '" + password + "')";
 
             con.query(sql, (err, result2)=>{
@@ -155,6 +160,11 @@ app.post('/create', body('login').isLength({min: 3}).trim().escape(), (req, res)
     req.session.username = login;
     req.session.save();
     res.redirect('/');
+});
+
+app.post("/goToCreation", (req, res) => { //Oui, c'est dégueu désolé
+    res.sendFile(__dirname + '/Front/html/newAccount.html');
+    req.session.username = -1;
 });
 
 
