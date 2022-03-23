@@ -1,4 +1,4 @@
-let socket = io();
+//let socket = io();
 
 class BATOGrid{
     grid; // Grille du jeu
@@ -607,8 +607,8 @@ class BATOGrid{
             //table.appendChild(tableBody);
             //body.appendChild(table);
             // ________________________________________________
-            socket.emit("new_user_grid", this.grid);
-            window.location.href="../html/matchmaking.html";
+            socket.to('room1').emit("new_user_grid", this.grid);
+            //window.location.href="../html/matchmaking.html";
         }
         else{
             console.log("Grid is not completed");

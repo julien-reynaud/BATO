@@ -18,7 +18,7 @@ const {body, validationResult} = require('express-validator');
 app.use(express.static(__dirname + '/Front/'))
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/Front/html/make_grid.html');
+    res.sendFile(__dirname + '/Front/html/matchmaking.html');
     /*
     let sessionData = req.session;
 
@@ -44,8 +44,8 @@ const rooms = {};
 
 io.on('connection', (socket) => {
 
-    socket.id = uuidv4();
-    console.log('A user connected');
+    //socket.id = uuidv4();
+    //console.log('A user connected');
 
     socket.on('message', (msg) =>{
         console.log(msg);
@@ -54,6 +54,8 @@ io.on('connection', (socket) => {
 
     //Rooms
     socket.on("user join", (username)=>{
+        let newUser = new User();
+        newUser.setId(socket.id);
         if(username != ''){
             for(let j = 0; j < arrayUser.length; j++){
                if(arrayUser[j].username == username){
@@ -62,14 +64,17 @@ io.on('connection', (socket) => {
             }
             if(arrayUser.length < 2 && sameUser == false){
                 //Temporaire
-                for(let i = 0; i < userConnected.length; i++){
-                    if(!userConnected[i].isUsername()){
-                        userConnected[i].setUsername(username);
-                        arrayUser.push(userConnected[i]);
-                        io.emit("print user", username);
-                        console.log(userConnected[i]);
-                    }
-                }
+                //for(let i = 0; i < userConnected.length; i++){
+                //    if(!userConnected[i].isUsername()){
+                //        userConnected[i].setUsername(username);
+                //        arrayUser.push(userConnected[i]);
+                //        io.emit("print user", username);
+                //        console.log(userConnected[i]);
+                //    }
+                //}
+                newUser.setUsername(username);
+                io.emit("print user", username)
+                arrayUser.push(newUser);
             }
             //if(arrayUser.length == 2){
             //    startGame();
@@ -85,11 +90,18 @@ io.on('connection', (socket) => {
         sameUser = false;
     });
     socket.on("new_user_grid", (grid)=>{
-        let newUser = new User();
-        newUser.setGrid(grid);
-        //newUser.setUsername(userConnected.length);
-        console.log("User :", /*newUser.username,*/ "has connected.")
-        userConnected.push(newUser);
+        //let newUser = new User();
+        //newUser.setGrid(grid);
+        ////newUser.setUsername(userConnected.length);
+        //console.log("User :", /*newUser.username,*/ "has connected.")
+        //userConnected.push(newUser);
+        for(let i = 0; i < arrayUser.length; i++){
+            console.log(arrayUser[i].id, socket.id);
+            if(arrayUser[i].id == socket.id){
+                arrayUser[i].setGrid(grid);
+                console.log("user", arrayUser[i].username, "has lock his grid.")
+            }
+        }
     })
     //socket.on("disconnect", () =>{
     //    console.log("User has disconnected.")
@@ -117,12 +129,17 @@ function startGame(){
 
 class User{
     constructor(){
+        this.id;
         this.username = "";
         this.grid = [];
     }
 
     setUsername(newUsername){
         this.username = newUsername;
+    }
+
+    setId(newId){
+        this.id = newId;
     }
 
     setGrid(newGrid){
