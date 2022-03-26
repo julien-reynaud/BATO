@@ -15,3 +15,26 @@
     padding-left:10%;
     padding-right:10%;
 }
+.startGame{
+    position: fixed;
+    margin-top: 10%;
+    margin-left: 25%;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    padding-left:10%;
+    padding-right:10%;
+    background-color: skyblue;
+    color: whitesmoke;
+    font-size: 30px;
+}
+/* .confirme{
+    text-align: center;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+}
+.confirme:hover{
+    scale: 1.3;
+    cursor:pointer;
+} */

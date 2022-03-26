@@ -39,6 +39,11 @@ app.get('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) =
 let arrayUser = [];
 let userConnected = [];
 let sameUser = false;
+let cmptRoom = 1;
+let waitingUser = [];
+//let room2 = "room1";
+//room2 = "room" +String(Number(room2[4]) + cmptRoom);
+
 
 const rooms = {};
 
@@ -47,18 +52,33 @@ io.on('connection', (socket) => {
     //socket.id = uuidv4();
     //console.log('A user connected');
 
-    socket.on('message', (msg) =>{
+    socket.on('message1', (msg) =>{
         console.log(msg);
-        io.emit('message', msg);
+        //io.emit('message', msg);
     });
+    socket.on("espion", (tir)=>{
+        console.log(socket.rooms);
+        socket.broadcast.to("room1").emit('message', tir);
+    })
 
     //Rooms
+    socket.on("usernameRoom", (username, roomname)=>{
+        arrayUser.push(username);
+    })
+    /*socket.on("createRoom", (roomname)=>{
+        console.log(socket.id);
+        socket.emit("room", roomname);
+    })*/
+
+
+    let newUser = new User();
     socket.on("user join", (username)=>{
-        let newUser = new User();
+        
         newUser.setId(socket.id);
+        console.log(username);
         if(username != ''){
             for(let j = 0; j < arrayUser.length; j++){
-               if(arrayUser[j].username == username){
+               if(arrayUser[j] == username){
                    sameUser = true;
                }
             }
@@ -73,20 +93,37 @@ io.on('connection', (socket) => {
                 //    }
                 //}
                 newUser.setUsername(username);
+
+                console.log(username);
                 io.emit("print user", username)
                 arrayUser.push(newUser);
             }
+            /*else{
+                waitingUser.push(newUser);
+            }*/
             //if(arrayUser.length == 2){
             //    startGame();
             //}
-            //console.log(arrayUser);
         }
+
     });
     socket.on("room", (roomname)=>{
-        
+        console.log("checkpoint : ", socket.id);
+        //console.log(arrayUser.length);
+        /*if(arrayUser.length >= 2){//Si room pleine
+            arrayUser.pop();
+            arrayUser.pop();
+            arrayUser.push(waitingUser[0]);
+            console.log(waitingUser[0], arrayUser[0]);
+            waitingUser.pop();
+            roomname = "room" +String(Number(roomname[4]) + cmptRoom);
+            cmptRoom += 1;
+        }*/
         if(arrayUser.length < 3 && sameUser == false){
             socket.join(roomname);
         }
+        //console.log("Room actuelle : ", roomname);
+        console.log(socket.rooms);
         sameUser = false;
     });
     socket.on("new_user_grid", (grid)=>{
@@ -113,9 +150,7 @@ io.on('connection', (socket) => {
 
     socket.on("getP2Grid", ()=>{
         io.emit("p2Grid", arrayUser[1].getGrid());
-    })
-
-    
+    })    
 });
 
 
@@ -132,6 +167,7 @@ class User{
         this.id;
         this.username = "";
         this.grid = [];
+        this.room = "";
     }
 
     setUsername(newUsername){
@@ -140,6 +176,9 @@ class User{
 
     setId(newId){
         this.id = newId;
+    }
+    setRoom(newRoom){
+        this.room = newRoom;
     }
 
     setGrid(newGrid){
