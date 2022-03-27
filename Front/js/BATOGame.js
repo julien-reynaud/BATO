@@ -1,8 +1,25 @@
 //let socket = io();
 
+/*window.onload = socket.emit("room", "room2");
+window.onload = socket.emit("askGrid");
+if(p1Grid.length == 0){
+    socket.on("sendGrid", (grid)=>{
+        p1Grid = grid;
+    })
+}
+else{
+    socket.on("sendGrid", (grid)=>{
+        p2Grid = grid;
+    })
+}*/
+socket.emit("room", "room1");
+socket.emit("askGrid");
+var cmptG = 0;
+
 class BATOGame {
 
-    p1Grid = [
+    
+    /*p1Grid = [
         [0, 0, 0, 0, 2, 2, 2, 2, 0, 0],
         [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,7 +42,7 @@ class BATOGame {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-      ];
+      ];*/
 
     currentWeapon;
     torpilleAvailable = true;
@@ -33,6 +50,30 @@ class BATOGame {
     radarAvailable = true;
 
     constructor() {
+        this.p1Grid = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ];
+        this.p2Grid = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ];
         //socket.on("p1Grid", (grid) => {
         //    this.p1Grid = grid;
         //});
@@ -118,9 +159,30 @@ class BATOGame {
         document.getElementById("bombe_a_fragment").addEventListener("click", event => this.clickWeaponButton(2));
         document.getElementById("radar").addEventListener("click", event => this.clickWeaponButton(3));
 
-        this.showGridP2();
+        
     }
-
+    setGrid1(grid){
+        //if(cmptG == 0){
+        this.p1Grid = grid;
+            //cmptG += 1;
+        //}
+        //else{
+            //this.p2Grid = grid;
+        //}
+    }
+    setGrid2(grid){
+        //if(cmptG == 0){
+        this.p2Grid = grid;
+            //cmptG += 1;
+        //}
+        //else{
+            //this.p2Grid = grid;
+        //}
+    }
+    printGrid(){
+        console.log("p1 : ", this.p1Grid);
+        console.log("p2 : ", this.p2Grid);
+    }
 
     // Fonction pour avoir un random entre 0 et max
     getRandomInt(max) {
@@ -415,5 +477,21 @@ class BATOGame {
     }
 
 }
-
 game = new BATOGame;
+socket.on("sendGrid", (grid, i)=>{
+    
+    game.setGrid1(grid[i]);
+    if(i == 1){//Si 2e joueur a rejoint
+        game.setGrid2(grid[i-1]);
+        socket.emit("p1WantsGrid", grid[i]);
+        game.printGrid();   
+        game.showGridP2();
+    }
+    
+})
+
+socket.on("hereItIs", (grid)=>{
+    game.setGrid2(grid);
+    game.showGridP2();
+    game.printGrid();
+})

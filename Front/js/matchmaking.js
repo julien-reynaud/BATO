@@ -42,7 +42,7 @@ btnJoin.addEventListener('click', btnJoinPushed);
 
 function btnJoinPushed(event){
     event.preventDefault();
-    socket.emit("usernameRoom", user.username, "room1");
+    socket.emit("usernameRoom", user.username);
     //socket.emit("room", "room1");
     //socket.emit("user join", user.username);
     window.location.href="../html/make_grid.html"; 

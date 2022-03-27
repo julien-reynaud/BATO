@@ -574,14 +574,18 @@ class BATOGrid{
 
     clickStart(){
         if(this.isGridFull()){
-            console.log("redirection");
+            socket.emit("saveGrid", this.grid);
+            //console.log(socket.rooms);
+            //socket.emit("ready", this.username);
+            window.location.href="../html/game.html";
+             
             // TMP ____________________________________________
             // Récupération et création d'élements html
             //let body = document.getElementsByTagName("body")[0];
             //let body = document.getElementById("grid");
             //let table = document.createElement("table");
             //let tableBody = document.createElement("tbody");
-//
+            
             //// Création des cases avec des id et data distinct + remplissage de la grille
             //let l = 0;
             //for (let i = 0; i < 10; i++) {
@@ -607,7 +611,7 @@ class BATOGrid{
             //table.appendChild(tableBody);
             //body.appendChild(table);
             // ________________________________________________
-            socket.to('room1').emit("new_user_grid", this.grid);
+            //socket.to('room1').emit("new_user_grid", this.grid);
             //window.location.href="../html/matchmaking.html";
         }
         else{
@@ -621,6 +625,9 @@ class BATOGrid{
 
 
 };
+socket.on("go", ()=>{
+    window.location.href="../html/game.html";
+})
 
 
 

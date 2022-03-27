@@ -37,10 +37,13 @@ app.get('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) =
 });
 
 let arrayUser = [];
+let arrayGrid = [];
 let userConnected = [];
 let sameUser = false;
 let cmptRoom = 1;
 let waitingUser = [];
+let cmptReady = 0;
+let cmptSendG = 0;
 //let room2 = "room1";
 //room2 = "room" +String(Number(room2[4]) + cmptRoom);
 
@@ -51,18 +54,46 @@ io.on('connection', (socket) => {
 
     //socket.id = uuidv4();
     //console.log('A user connected');
+    socket.on("p1WantsGrid", (grid)=>{
+        socket.broadcast.to("room1").emit('hereItIs', grid);
+    })
+    socket.on("saveGrid", (grid)=>{
+        if(arrayGrid.length == 0){
+            arrayGrid[0] = grid;//p1
+        }
+        else{
+            arrayGrid[1] = grid;//p2
+        }
+    })
+    socket.on("askGrid", ()=>{
+        socket.emit("sendGrid", arrayGrid, cmptSendG);
+        cmptSendG += 1;
+    })
+    socket.on("ready", (username)=>{
+        let isReady = false;
+        for (i in arrayUser){
+            if (i == username){
+                isReady = true;
+            }
+        }
+        if(isReady == false){
+            cmptReady += 1;
+        }
+        if(cmptReady == 2){
+            socket.to("room1").emit("go");
+        }
+    })
 
     socket.on('message1', (msg) =>{
         console.log(msg);
         //io.emit('message', msg);
     });
     socket.on("espion", (tir)=>{
-        console.log(socket.rooms);
         socket.broadcast.to("room1").emit('message', tir);
     })
 
     //Rooms
-    socket.on("usernameRoom", (username, roomname)=>{
+    socket.on("usernameRoom", (username)=>{
         arrayUser.push(username);
     })
     /*socket.on("createRoom", (roomname)=>{
@@ -105,10 +136,8 @@ io.on('connection', (socket) => {
             //    startGame();
             //}
         }
-
     });
     socket.on("room", (roomname)=>{
-        console.log("checkpoint : ", socket.id);
         //console.log(arrayUser.length);
         /*if(arrayUser.length >= 2){//Si room pleine
             arrayUser.pop();
@@ -123,7 +152,6 @@ io.on('connection', (socket) => {
             socket.join(roomname);
         }
         //console.log("Room actuelle : ", roomname);
-        console.log(socket.rooms);
         sameUser = false;
     });
     socket.on("new_user_grid", (grid)=>{
@@ -133,7 +161,7 @@ io.on('connection', (socket) => {
         //console.log("User :", /*newUser.username,*/ "has connected.")
         //userConnected.push(newUser);
         for(let i = 0; i < arrayUser.length; i++){
-            console.log(arrayUser[i].id, socket.id);
+            //console.log(arrayUser[i].id, socket.id);
             if(arrayUser[i].id == socket.id){
                 arrayUser[i].setGrid(grid);
                 console.log("user", arrayUser[i].username, "has lock his grid.")

@@ -1,4 +1,4 @@
-let socket = io();
+//let socket = io();
 
 //Envoi message
 
@@ -9,7 +9,7 @@ function send(tir){
 }
 
 //Recuperer case du tir
-document.querySelectorAll("td").forEach(tir => tir.addEventListener("click", () => send(tir)));
+//document.querySelectorAll("td").forEach(tir => tir.addEventListener("click", () => send(tir)));
 
 // Affichage d'un message
 
@@ -33,4 +33,4 @@ socket.on('message', msg => {
 
 //Room
 
-window.onload = socket.emit("room", "room1");
+//window.onload = socket.emit("room", "room1");
