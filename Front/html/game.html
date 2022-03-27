@@ -6,18 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../css/grid.css">   
     <title>Game</title>
 </head>
 <body>
-    <div>
-        <button class="custom-btn btn-bato" data="0" id ="missile">Missile</button>
-        <button class="custom-btn btn-bato" data="1" id ="torpille">Torpille</button>
-        <button class="custom-btn btn-bato" data="2" id ="bombe_a_fragment">Bombe à fragment</button>
-        <button class="custom-btn btn-bato" data="2" id ="radar">Radar</button>
+    <div><h2>Current objective : Destroy all enemy's space-ships</h2></div>
+    <div id="TEXT_SELECTION"><p>Select a weapon and shoot</p></div>
+    <div id="WAITING"><h3>Waiting for the other player</h3></div>
+    <div id="ALL_BUTTONS">
+        <button class="custom-btn btn-bato" data="0" id ="missile">Missile
+            <div class="tooltip">Simple shot</div>
+        </button>
+        <button class="custom-btn btn-bato" data="1" id ="torpille">Torpedo
+            <div class="tooltip">Destroy formation if 3 ships remaining</div>
+        </button>
+        <button class="custom-btn btn-bato" data="2" id ="bombe_a_fragment">Fragment bomb
+            <div class="tooltip">Powerful cross shot</div>
+        </button>
+        <button class="custom-btn btn-bato" data="2" id ="radar">Radar
+            <div class="tooltip">Display the positions of ships during 5s</div>
+        </button>
     </div>
-    <div id="GridAdversaire"><h2>Opponent Grid</h2></div>
-    <div id="GridPlayer"><h2>My Grid</h2></div>    
+    <div id="GridAdversaire"><h2>Enemy Grid</h2></div>
+    <div id="GridPlayer"><h2>My Grid</h2></div>
+    <div><h2 id="Result"></h2></div>    
 </body>
 <script type="text/javascript">
     let socket = io();

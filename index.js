@@ -57,6 +57,11 @@ io.on('connection', (socket) => {
     socket.on("p1WantsGrid", (grid)=>{
         socket.broadcast.to("room1").emit('hereItIs', grid);
     })
+
+    socket.on("p2WantsGrid", (grid)=>{
+        socket.broadcast.to("room1").emit('getShot', grid);
+    })
+
     socket.on("saveGrid", (grid)=>{
         if(arrayGrid.length == 0){
             arrayGrid[0] = grid;//p1
