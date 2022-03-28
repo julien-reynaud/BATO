@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
     {
         console.log('Infos ok, on passe à la suite');
         res.sendFile(__dirname + '/Front/html/index.html');
-        res.send({pseudo: sessionData.username});
+        //res.send({pseudo: sessionData.username});
     }
 });
 
@@ -112,9 +112,8 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
             req.session.username = login; // el famoso username dont on teste la presence juste au-dessus
             // Le mot de passe est pas stocké dans les infos de la session, on vérifie seulement s'il est bon avec la bdd
             req.session.save(); // ctrl + s
+            res.redirect('/');
         }
-        
-        res.redirect('/');
         });
     });
 });
@@ -162,7 +161,7 @@ app.post('/create', body('login').isLength({min: 3}).trim().escape(), (req, res)
     res.redirect('/');
 });
 
-app.post("/goToCreation", (req, res) => { //Oui, c'est dégueu désolé
+app.post("/goToCreation", (req, res) => { //Oui, c'est dégueu désolé monsieur
     res.sendFile(__dirname + '/Front/html/newAccount.html');
     req.session.username = -1;
 });
