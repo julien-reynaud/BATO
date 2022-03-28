@@ -658,11 +658,11 @@ class BATOGame {
         socket.emit("p2WantsGrid", this.p2Grid);
         this.setIsNotMyTurn();
         if(this.isGameWin()){
-            let finalScore = this.calculateScore()
+            let finalScore = this.calculateScore(500)
             document.getElementById("Result").textContent = "You win ! Your score is " + finalScore;
         }
         else if(this.isGameLoose()){
-            let finalScore = this.calculateScore()
+            let finalScore = this.calculateScore(-500)
             document.getElementById("Result").textContent = "You loose ! Your score is " + finalScore;
         }
     }
@@ -716,7 +716,7 @@ class BATOGame {
         return(true);
     }
 
-    calculateScore(){
+    calculateScore(bonus){
         let score = 0;
         let touchedRatio = this.nbTouchedCase/this.nbShot;
         let timeRatio = (this.timeSpent / 1000) / this.nbShot;
@@ -745,7 +745,7 @@ class BATOGame {
 
         //console.log("Bonus :   time -", timeBonus, "   touched -", touchedBonus, "   weapon -", weaponBonus)
 
-        score = timeBonus + touchedBonus + weaponBonus;
+        score = timeBonus + touchedBonus + weaponBonus + bonus;
 
         return score;
     }
