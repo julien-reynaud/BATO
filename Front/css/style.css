@@ -44,11 +44,27 @@ a:hover{
     color:#f8bc04;
 }
 
-#btn-login, #btn-createAcc{
+#btn-login{
     margin-left: auto;
     margin-top: auto;
     background: #530f1e;
     color: #f8bc04;
+    width: 7%;
+    font-size:20px;
+    line-height: 42px;
+    padding: auto;
+    border: none;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+#btn-createAcc{
+    margin-left: auto;
+    margin-top: auto;
+    background: #530f1e;
+    color: #f8bc04;
+    width: 10%;
+    font-size:20px;
     line-height: 42px;
     padding: auto;
     border: none;
@@ -61,3 +77,6 @@ a:hover{
     background: #f8bc04;
 }
 
+input[type=text]:focus{
+    border: 3px solid #555;
+}
