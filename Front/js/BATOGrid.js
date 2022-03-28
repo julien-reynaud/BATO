@@ -219,7 +219,6 @@ class BATOGrid{
         }
 
         // Retrait du hover
-
         $('td').mouseover(function(){
             const col = $(this).index();
             const row = $(this).closest('tr').index();
@@ -523,6 +522,7 @@ class BATOGrid{
         }
     }
 
+    // Appui du bouton start
     clickStart(){
         if(this.isGridFull()){
             socket.emit("saveGrid", this.grid);
@@ -539,6 +539,8 @@ class BATOGrid{
 
 
 };
+
+// Redirection
 socket.on("go", ()=>{
     window.location.href="../html/game.html";
 })
