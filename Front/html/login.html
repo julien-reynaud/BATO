@@ -5,18 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">    
     <title>BATO - Se connecter</title>
 </head>
 <body>
-
-    <h1 id="titre"></h1>
+    <h1>B.A.T.O</h1>
+    <h2>Bataille Aérospatiale des Tireurs de l'Oubli</h2>
+    <hr>
+    <p id="titre"></p>
     <form id="logForm" name="login" action="">
-        <input id="username" type="text" name="username">
-        <input id="pwd" type="text" name="pwd">
-        <input type="submit" value="Log in">
+        <input id="username" type="text" name="username" placeholder="Username...">
+        <input id="pwd" type="text" name="pwd" placeholder="Password...">
+        <input type="submit" value="Log in" id="btn-login">
     </form>
     <a href="../html/newAccount.html" id="pasDeCompte">Vous n'avez pas de compte ?</a>
 </body>
+
 <script src="../js/logFunc.js"></script>
 <script src="../js/goToCreate.js"></script>
 <script src="../js/login.js"></script>
