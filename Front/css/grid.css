@@ -305,3 +305,23 @@ body {
     color: #a44322;
     position: absolute;
 }
+
+#Result {
+    padding: 30px;
+}
+
+#boxResult{
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 43%;
+    margin-top: -150px;
+    margin-left: -77px;
+    border: solid 3px;
+    border-color: #f8bc04;
+    border-radius: 50px;
+    height: 300px;
+    width: 300px;
+    background-color: #410c17;
+    opacity: 90%;
+}

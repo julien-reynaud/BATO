@@ -1,48 +1,8 @@
-//let socket = io();
-
-/*window.onload = socket.emit("room", "room2");
-window.onload = socket.emit("askGrid");
-if(p1Grid.length == 0){
-    socket.on("sendGrid", (grid)=>{
-        p1Grid = grid;
-    })
-}
-else{
-    socket.on("sendGrid", (grid)=>{
-        p2Grid = grid;
-    })
-}*/
 socket.emit("room", "room1");
 socket.emit("askGrid");
 var cmptG = 0;
 
 class BATOGame {
-
-    /*p1Grid = [
-        [0, 0, 0, 0, 2, 2, 2, 2, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 3, 3, 3, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 4, 4, 0, 0],
-        [0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 3, 0, 0, 0, 0, 0, 0]
-    ];
-    p2Grid = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 2, 0, 0, 0, 3, 3, 3, 0, 0],
-        [0, 2, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 2, 0, 0, 3, 0, 0, 0, 0, 0],
-        [0, 2, 0, 0, 3, 0, 0, 4, 4, 0],
-        [0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-      ];*/
-
     currentWeapon;
     torpilleAvailable = true;
     bombeAFragmentAvailable = true;
@@ -83,17 +43,6 @@ class BATOGame {
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         ];
-        //socket.on("p1Grid", (grid) => {
-        //    this.p1Grid = grid;
-        //});
-        //socket.on("p2Grid", (grid) => {
-        //    this.p2Grid = grid;
-        //});
-//
-        //socket.emit("getP1Grid");
-        //socket.emit("getP2Grid");
-        //console.log(this.p1Grid, this.p2Grid);
-
         /**
          * 
          * GRILLE 1
@@ -167,6 +116,12 @@ class BATOGame {
         document.getElementById("torpille").addEventListener("click", event => this.clickWeaponButton(1));
         document.getElementById("bombe_a_fragment").addEventListener("click", event => this.clickWeaponButton(2));
         document.getElementById("radar").addEventListener("click", event => this.clickWeaponButton(3));
+
+        document.getElementById("boxResult").style.visibility = "hidden";
+
+        document.getElementById("menuRedirect").addEventListener("click", event => {
+            window.location.href="../html/matchmaking.html";
+        });
 
         //this.showGridP2();
 
@@ -658,11 +613,13 @@ class BATOGame {
         socket.emit("p2WantsGrid", this.p2Grid);
         this.setIsNotMyTurn();
         if(this.isGameWin()){
-            let finalScore = this.calculateScore(500)
+            let finalScore = this.calculateScore(500);
+            document.getElementById("boxResult").style.visibility = "visible";
             document.getElementById("Result").textContent = "You win ! Your score is " + finalScore;
         }
         else if(this.isGameLoose()){
-            let finalScore = this.calculateScore(-500)
+            let finalScore = this.calculateScore(-500);
+            document.getElementById("boxResult").style.visibility = "visible";
             document.getElementById("Result").textContent = "You loose ! Your score is " + finalScore;
         }
     }
@@ -685,11 +642,13 @@ class BATOGame {
             }
         }
         if(this.isGameWin()){
-            let finalScore = this.calculateScore()
+            let finalScore = this.calculateScore();
+            document.getElementById("boxResult").style.visibility = "visible";
             document.getElementById("Result").textContent = "You win ! Your score is " + finalScore;
         }
         else if(this.isGameLoose()){
-            let finalScore = this.calculateScore()
+            let finalScore = this.calculateScore();
+            document.getElementById("boxResult").style.visibility = "visible";
             document.getElementById("Result").textContent = "You loose ! Your score is " + finalScore;
         }
     }
@@ -828,5 +787,9 @@ socket.on("getShot", (grid) =>{
     game.setGrid1(grid);
     game.updatePlayerGrid();
     game.setIsMyTurn();
+    if(game.isGameLoose()){
+        let finalScore = game.calculateScore()
+        document.getElementById("Result").textContent = "You loose ! Your score is " + finalScore;
+    }   
     //game.printGrid();
 })

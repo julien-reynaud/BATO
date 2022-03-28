@@ -35,20 +35,16 @@ function getPseudo(event){
 //Room
 
 let btnJoin = document.querySelector(".btnJoin");
-//let btnStart = document.querySelector(".confirme");
 
 btnJoin.addEventListener('click', btnJoinPushed);
-//btnStart.addEventListener('click', btnStartPushed);
 
 function btnJoinPushed(event){
     event.preventDefault();
     socket.emit("usernameRoom", user.username);
-    //socket.emit("room", "room1");
-    //socket.emit("user join", user.username);
     window.location.href="../html/make_grid.html"; 
 }
 
-socket.on("print user", (username)=>{
+socket.on("print user", (username)=>{ // Affiche les joueurs dans la room
     let item = document.querySelector('.room');
     let newElement = document.createElement('p');
     newElement.innerHTML = username;
