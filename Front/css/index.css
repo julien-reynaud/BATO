@@ -25,11 +25,41 @@ hr{
     padding: 2px;
 }
 
-table, td {
+.tableau{
+    margin-right: 6%;
+    font-size: 30px;
+}
+
+table{
+    border: 2px dotted #530f1e;
+}
+
+td {
     border: 1px solid #530f1e;
+    padding: 10px 15px 10px 15px;
 }
 
 thead {
     background-color: #530f1e;
     color: #f8bc04;
+}
+
+#join{
+    margin-top: 8%;
+    margin-left: 26%; 
+    float:left;
+    width: 10%;
+    font-size:30px;
+    background: #530f1e;
+    color: #f8bc04;
+    line-height: 42px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+#join:hover{
+    color: #530f1e;
+    background: #f8bc04;
 }
