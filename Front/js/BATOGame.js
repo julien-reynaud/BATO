@@ -640,11 +640,13 @@ class BATOGame {
         // Vérification de si la partie est terminée (victoire ou défaite)
         if(this.isGameWin()){
             let finalScore = this.calculateScore(500);
+            //socket.emit("sendScore", finalScore);
             document.getElementById("boxResult").style.visibility = "visible";
             document.getElementById("Result").textContent = "You win ! Your score is " + finalScore;
         }
         else if(this.isGameLoose()){
             let finalScore = this.calculateScore(-500);
+            //socket.emit("sendScore", finalScore);
             document.getElementById("boxResult").style.visibility = "visible";
             document.getElementById("Result").textContent = "You loose ! Your score is " + finalScore;
         }

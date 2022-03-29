@@ -67,6 +67,10 @@ app.get('/', (req, res) => {
         console.log('Infos ok, on passe à la suite');
         res.sendFile(__dirname + '/Front/html/index.html');
 
+        io.on('connection', (socket) => {
+            socket.emit("receivePseudo", sessionData.username); // On envoie ça pour le front
+        });
+
         const con = mysql.createConnection({
             host: "localhost",
             user: "root",
@@ -131,6 +135,10 @@ app.post('/login', body('login').isLength({min: 3}).trim().escape(), (req, res) 
             // Le mot de passe est pas stocké dans les infos de la session, on vérifie seulement s'il est bon avec la bdd
             req.session.save(); // ctrl + s
             res.redirect('/');
+        }
+        else
+        {
+            io.emit("cheh", true);
         }
         });
     });
@@ -334,3 +342,29 @@ class User{
         return this.grid;
     }
 }
+/*
+io.on("connection", (socket) => {
+    socket.on("sendScore", (result) => {
+        const con = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "toto",
+            database: "batodb",
+        });
+
+        con.connect(err => {
+            if(err) throw err;
+            console.log(sessionData.username);
+            con.query("SELECT * FROM users WHERE username = '" + sessionData.username + "'", (err, result) => {
+                if (err) throw err;
+
+                if(result[0][3] < result)
+                {
+                    con.query("UPDATE users SET score = " + result + " WHERE username = '" + sessionData.username + "'", (err, result) =>{
+                        if(err) throw err;
+                    });
+                }
+            });
+        });
+    });
+});*/

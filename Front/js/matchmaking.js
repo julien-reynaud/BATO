@@ -21,22 +21,31 @@ class User{
 }
 let test = 1;
 
+/*
 let pseudo = document.querySelector("#pseudo");
 pseudo.addEventListener('click', getPseudo);
+*/
 
 let user = new User();
 
+socket.on("receivePseudo", (result) => {
+    user.setUsername(result);
+});
+
+/*
 function getPseudo(event){
     event.preventDefault();
     user.setUsername(document.getElementById("inputPseudo").value);
 
 }
+*/
 
 //Room
 
 let btnJoin = document.querySelector(".btnJoin");
 
 btnJoin.addEventListener('click', btnJoinPushed);
+
 
 function btnJoinPushed(event){
     event.preventDefault();
