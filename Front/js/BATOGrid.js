@@ -1,5 +1,3 @@
-let socket = io();
-
 class BATOGrid{
     grid; // Grille du jeu
     event;  // Liste d'événements
@@ -9,7 +7,6 @@ class BATOGrid{
 
     constructor() {
         // Récupération et création d'élements html
-        //let body = document.getElementsByTagName("body")[0];
         let body = document.getElementById("grid");
         let table = document.createElement("table");
         let tableBody = document.createElement("tbody");
@@ -25,12 +22,10 @@ class BATOGrid{
         for (let i = 0; i < 10; i++) {
             let row = document.createElement("tr");
             for (let j = 0; j < 10; j++) {
-                var cell = document.createElement("td");
-                //cell.setAttribute('id', "cell" + i + j);
+                let cell = document.createElement("td");
                 cell.setAttribute('id', l);
                 cell.setAttribute('data', l);
-                //cell.textContent = cell.getAttribute('data');
-                //console.log(cell);
+
                 row.appendChild(cell);
                 this.grid[i][j] = 0;
                 l++;
@@ -61,26 +56,6 @@ class BATOGrid{
 
         document.getElementById("start").addEventListener("click", event => this.clickStart());
     }
-
-    //logKey(key){
-    //    if(key.code == "KeyR"){
-    //        if(this.currentDirection == 1){
-    //            this.currentDirection = 2;
-    //            //console.log(this.currentDirection);
-    //            console.log("Vertical");             
-    //            document.getElementById("direction").textContent = "Vertical";
-    //            //document.querySelectorAll("td").forEach(e => e.addEventListener("click", () => this.clickGrid(e)));
-    //        }
-    //        else{
-    //            this.currentDirection = 1;
-    //            //console.log(this.currentDirection);
-    //            console.log("Horizontal");
-    //            document.getElementById("direction").textContent = "Horizontal";
-    //            //document.querySelectorAll("td").forEach(e => e.addEventListener("click", () => this.clickGrid(e)));
-    //        }
-    //    }
-    //    
-    //}
 
     // Fonction pour avoir un random entre 0 et max
     getRandomInt(max) {
@@ -140,13 +115,11 @@ class BATOGrid{
     clickGrid(element){
         let x = Math.floor((element.getAttribute("data")) / 10);
         let y = Math.floor((element.getAttribute("data")) % 10);
-        //console.log(x , y);
         this.updateGrid(x,y);
     }
 
     // Modification de la grille après le click
     updateGrid(x, y){
-        //console.log(this.currentDirection);
         if(this.currentDirection == 1){
             if(this.currentShip == 0){
                 if(y-2 >= 0 && y+2 < 10 && this.grid[x][y-1] == 0 && this.grid[x][y-2] == 0 && this.grid[x][y] == 0 && this.grid[x][y+1] == 0 && this.grid[x][y+2] == 0){
@@ -243,11 +216,9 @@ class BATOGrid{
                     console.log("Impossible");
                 }
             }
-            //console.log(this.shipList);
         }
 
         // Retrait du hover
-
         $('td').mouseover(function(){
             const col = $(this).index();
             const row = $(this).closest('tr').index();
@@ -262,7 +233,6 @@ class BATOGrid{
 
         // Initialistion à 0
         this.currentShip = -1;
-        //this.showCurrentShip();
 
         // Update Buttons
 
@@ -291,7 +261,6 @@ class BATOGrid{
             }
         }
 
-        //console.log(this.grid);
         this.showGrid();
     }
 
@@ -302,48 +271,38 @@ class BATOGrid{
             if(data == 0){
                 this.currentDirection = 2;
                 this.currentShip = 0;
-                //this.showCurrentShip();
             }
             else if(data == 1){
                 this.currentDirection = 2;
                 this.currentShip = 1;
-                //this.showCurrentShip();
             }
             else if(data == 2){
                 this.currentDirection = 2;
                 this.currentShip = 2;
-                //this.showCurrentShip();
             }
             else if(data == 3){
                 this.currentDirection = 2;
                 this.currentShip = 3;
-                //this.showCurrentShip();
             }
             else if(data == 4){
                 this.currentDirection = 1;
                 this.currentShip = 0;
-                //this.showCurrentShip();
             }
             else if(data == 5){
                 this.currentDirection = 1;
                 this.currentShip = 1;
-                //this.showCurrentShip();
             }
             else if(data == 6){
                 this.currentDirection = 1;
                 this.currentShip = 2;
-                //this.showCurrentShip();
             }
             else if(data == 7){
                 this.currentDirection = 1;
                 this.currentShip = 3;
-                //this.showCurrentShip();
             }
 
             this.setHoverEffects(data);
-            //console.log(this.currentDirection);
 
-            //document.addEventListener('keydown', this.logKey);
             document.querySelectorAll("td").forEach(e => e.addEventListener("click", () => this.clickGrid(e)));
         }
         else{
@@ -363,8 +322,7 @@ class BATOGrid{
                         $('tr:eq('+ $i +') td:eq('+ $j +')').css('background-color', '');
                     }
                 }
-                //console.log($(this).grid[row-2][col])
-                if(row-2 >= 0 && row-1 >= 0 && row+1 <= 9 && row+2 <= 9 /*&& this.grid[row-2][col] == 0*/){
+                if(row-2 >= 0 && row-1 >= 0 && row+1 <= 9 && row+2 <= 9){
                     for (let $i = row - 2; $i <= row + 2; $i++){
                         $('tr:eq('+ $i +') td:eq('+ col +')').css('background-color', '#530f1e');
                     }
@@ -373,7 +331,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
         else if(data == 1){
             $('td').mouseover(function(){
@@ -395,7 +352,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
         else if(data == 2){
             $('td').mouseover(function(){
@@ -418,7 +374,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
         else if(data == 3){
             $('td').mouseover(function(){
@@ -440,7 +395,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
         else if(data == 4){
             $('td').mouseover(function(){
@@ -462,7 +416,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
         else if(data == 5){
             $('td').mouseover(function(){
@@ -484,7 +437,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
         else if(data == 6){
             $('td').mouseover(function(){
@@ -506,7 +458,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
         else if(data == 7){
             $('td').mouseover(function(){
@@ -528,7 +479,6 @@ class BATOGrid{
             $('td').mouseleave(function(){
                 $('td').css('background-color', '');
             })
-            //document.querySelectorAll("td").forEach(e => e.className = "hoverEffect");
         }
     }
 
@@ -572,43 +522,11 @@ class BATOGrid{
         }
     }
 
+    // Appui du bouton start
     clickStart(){
         if(this.isGridFull()){
-            console.log("redirection");
-            // TMP ____________________________________________
-            // Récupération et création d'élements html
-            //let body = document.getElementsByTagName("body")[0];
-            //let body = document.getElementById("grid");
-            //let table = document.createElement("table");
-            //let tableBody = document.createElement("tbody");
-//
-            //// Création des cases avec des id et data distinct + remplissage de la grille
-            //let l = 0;
-            //for (let i = 0; i < 10; i++) {
-            //    let row = document.createElement("tr");
-            //    for (let j = 0; j < 10; j++) {
-            //        var cell = document.createElement("td");
-            //        //cell.setAttribute('id', "cell" + i + j);
-            //        cell.setAttribute('id', l);
-            //        cell.setAttribute('data', l);
-            //        //cell.textContent = cell.getAttribute('data');
-            //        //console.log(cell);
-            //        row.appendChild(cell);
-            //        this.grid[i][j] = 0;
-            //        l++;
-            //    }
-            //    tableBody.appendChild(row);
-            //}
-            //console.log(this.grid);
-            // Un peu de style
-            //table.setAttribute('class', "tableau");
-            //table.setAttribute("border", "10px");
-//
-            //table.appendChild(tableBody);
-            //body.appendChild(table);
-            // ________________________________________________
-            socket.emit("new_user_grid", this.grid);
-            window.location.href="../html/index.html";
+            socket.emit("saveGrid", this.grid);
+            window.location.href="../html/game.html";
         }
         else{
             console.log("Grid is not completed");
@@ -621,6 +539,11 @@ class BATOGrid{
 
 
 };
+
+// Redirection
+socket.on("go", ()=>{
+    window.location.href="../html/game.html";
+})
 
 
 

@@ -87,3 +87,34 @@ a:hover{
 input[type=text]:focus{
     border: 3px solid #555;
 }
+
+#join, #create{
+    margin-top: 20%;
+    margin-left: 45%;
+    float:left;
+    width: 10%;
+    font-size:30px;
+}
+#roomBox {
+    float:right;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    margin:auto;
+    padding-bottom:10%;
+    padding-left:10%;
+    padding-right:10%;
+}
+.startGame{
+    position: fixed;
+    margin-top: 10%;
+    margin-left: 25%;
+    border-width:2px;
+    border-style:solid;
+    border-color:black;
+    padding-left:10%;
+    padding-right:10%;
+    background-color: skyblue;
+    color: whitesmoke;
+    font-size: 30px;
+}
