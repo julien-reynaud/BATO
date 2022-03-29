@@ -11,19 +11,48 @@
 </head>
 
 <body>
-    <div class = "btnJoin"><button id="join">Join</button></div>
+    <h1>B.A.T.O</h1>
+    <h2>Bataille Aérospatiale des Tireurs Orbitaux</h2>
+    <hr>
 
-    <div id="roomBox">
-        <p class="room">Room :</p>
-    </div>
-
+    <div class = "btnJoin"><button id="join">Join !</button></div>
     <input type="text" placeholder="Entrez votre pseudo..." id="inputPseudo">
     <button id="pseudo">Confirmer</button>
 
-    <!-- <div class = "startGame">
-        <p>La partie peut commencer !</p>
-        <p class="confirme">ok</p>
-    </div> -->
+    <div class="tableau">
+        <table align="right">
+            <thead>
+                <tr>
+                    <th colspan="3">Leaderboard</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard">
+                <tr>
+                    <td>1st place</td>
+                    <td>*pseudo*</td>
+                    <td>*score*</td>
+                </tr>
+                <tr>
+                    <td>2nd place</td>
+                    <td>*pseudo*</td>
+                    <td>*score*</td>
+                </tr>        <tr>
+                    <td>3rd place</td>
+                    <td>*pseudo*</td>
+                    <td>*score*</td>
+                </tr>        <tr>
+                    <td>4th place</td>
+                    <td>*pseudo*</td>
+                    <td>*score*</td>
+                </tr>
+                <tr>
+                    <td>5th place</td>
+                    <td>*pseudo*</td>
+                    <td>*score*</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script src="../js/matchmaking.js"></script>
 </body>
