@@ -20,8 +20,8 @@ class User{
 /*let pseudo = document.querySelector("#pseudo");
 pseudo.addEventListener('click', getPseudo);*/
 
-var user = new User();
-user.setUsername(pseudo);
+//var user = new User();
+//user.setUsername(pseudo);
 /*function getPseudo(event){
     event.preventDefault();
     user.setUsername(document.getElementById("inputPseudo").value);
@@ -31,7 +31,7 @@ user.setUsername(pseudo);
 //Room
 let btnJoin = document.querySelector(".btnJoin");
 
-btnJoin.addEventListener('click', btnJoinPushed);
+//btnJoin.addEventListener('click', btnJoinPushed);
 
 function btnJoinPushed(event){
     event.preventDefault();
@@ -46,4 +46,14 @@ socket.on("print user", (username)=>{
     let newElement = document.createElement('p');
     newElement.innerHTML = username;
     item.appendChild(newElement);
+});
+
+socket.on("leaderboard", (result) => {
+    console.log(result);
+    let linesToAdd = "";
+
+    result.forEach((item, index, arr) => {
+        linesToAdd = "<tr><td>" + (result.length - index) + "</td><td>" + item["username"] + "</td><td>" + item["score"] +"</td></tr>" + linesToAdd;
+    });
+    document.getElementById("leaderboard").innerHTML = linesToAdd;
 });

@@ -31,6 +31,7 @@ const {body, validationResult} = require('express-validator');
 const sharedsession = require('express-socket.io-session');
 const bodyParser = require('body-parser'); // Pour traiter la requête ajax. Permet d'utiliser req.body dans le app.post('/login')
 const { Console } = require('console');
+const { captureRejections } = require('events');
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -67,7 +68,26 @@ app.get('/', (req, res) => {
     {
         console.log('Infos ok, on passe à la suite');
         res.sendFile(__dirname + '/Front/html/index.html');
-        //res.send({pseudo: sessionData.username});
+
+        const con = mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "toto",
+            database: "batodb",
+        });
+
+        con.connect(err => {
+            if(err) throw err;
+
+            con.query("SELECT * FROM users ORDER BY score LIMIT 5", (err, result) => {
+                if (err) throw err;
+
+                //console.log(result);
+                io.on('connection', (socket) => {
+                    socket.emit("leaderboard", result);
+                });
+            });
+        });
     }
 });
 
