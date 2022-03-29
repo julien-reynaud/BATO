@@ -24,7 +24,7 @@ let test = 1;
 let pseudo = document.querySelector("#pseudo");
 pseudo.addEventListener('click', getPseudo);
 
-var user = new User();
+let user = new User();
 
 function getPseudo(event){
     event.preventDefault();
