@@ -22,7 +22,7 @@ class BATOGrid{
         for (let i = 0; i < 10; i++) {
             let row = document.createElement("tr");
             for (let j = 0; j < 10; j++) {
-                var cell = document.createElement("td");
+                let cell = document.createElement("td");
                 cell.setAttribute('id', l);
                 cell.setAttribute('data', l);
 

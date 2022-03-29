@@ -1,6 +1,5 @@
 socket.emit("room", "room1");
 socket.emit("askGrid");
-var cmptG = 0;
 
 
 // Class du jeu 
