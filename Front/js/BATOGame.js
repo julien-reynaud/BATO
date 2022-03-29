@@ -119,7 +119,7 @@ class BATOGame {
 
         // Bouton de la box de résultat
         document.getElementById("menuRedirect").addEventListener("click", event => {
-            window.location.href="../html/matchmaking.html";
+            window.location.href="../html/index.html";
         });
 
         // Démarrage du temps (pour le calcul de résultat)
