@@ -4,7 +4,7 @@ var cmptG = 0;
 
 
 // Class du jeu 
-    // Particularité : La class crée toutes les grilles de la page et réalise les échanges de tirs via sockets
+    // Particularité : La classe crée toutes les grilles de la page et réalise les échanges de tirs via sockets
 class BATOGame {
     // Différentes variables utiles
     currentWeapon;
@@ -165,7 +165,6 @@ class BATOGame {
 
     // Fonction de l'affichage de la grille
     showGridP2(){
-
         for(let i = 0; i < 10; i++){
             for(let j = 0; j < 10; j++){
 
@@ -190,7 +189,7 @@ class BATOGame {
         }
     }
 
-    // Fonction pour la selection de tir (par boutons)
+    // Fonction pour la selection de tir (par bouton)
     clickWeaponButton(data){
         //Retrait du hover
         $('#GridAdversaire td').mouseover(function(){
@@ -371,7 +370,7 @@ class BATOGame {
             this.t1 = performance.now();
             this.timeSpent += this.t1 - this.t0; //Calcul du temps
             this.t0 = performance.now(); // Redemarrage du temps
-            // Si un bateau est touchée
+            // Si un bateau est touché
             if(this.p2Grid[x][y] !== 0 && this.p2Grid[x][y] !== -1){
                 document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
                 let rand = this.getRandomInt(3);
@@ -387,7 +386,7 @@ class BATOGame {
                 this.p2Grid[x][y] = 10;
                 this.nbTouchedCase++;
             }
-            // Si un bateau n'est pas touchée
+            // Si un bateau n'est pas touché
             else{
                 document.getElementById("GridAdversaire").querySelectorAll("td").forEach(e => e.getAttribute("data") === id.toString() ? currentElement = e : '');
                 currentElement.setAttribute("class", "caseTouched");
@@ -482,8 +481,8 @@ class BATOGame {
                             }
                         }
                         // Cas où c'est un bateau de 3 et qu'il reste plus de 3 cases avec ce type de bateau
-                            // Explication : on parcours 5 cases autour du tir et on détruit les cases dans cet zones 
-                            // EASTER EGG : si deux bateaux de 3 sont collés ils ont tout les deux détruit (easter egg non voulu initialement)  
+                            // Explication : on parcourt 5 cases autour du tir et on détruit les cases dans cet zones 
+                            // EASTER EGG : si deux bateaux de 3 sont collés ils sont tous les deux détruits (easter egg non voulu initialement)  
                         else{
                             for(let i = x-2; i < x+2 ; i++){
                                 for(let j = y-2; j < y+2; j++){
